@@ -1,0 +1,53 @@
+<import name="bottom-div" src="../bottomDiv/index.ux"></import>
+
+<template>
+  <div class="card">
+    <text class="card-main-title">{{values.title}}</text>
+    <video class="video-class" autoplay="false" poster="checkEmpty(values,'thumbnails',0,'url')" src="{{checkEmpty(values,'videos',0,'url')}}"></video>
+    <!-- <text class="length-class">{{values.length}}</text> -->
+    <bottom-div values="{{values}}"></bottom-div>
+  </div>
+</template>
+
+
+
+<style lang="less">
+@import "../../../css/common.less";
+.video-class {
+  margin-top: 25px;
+  width: 908px;
+  height: 510px;
+  background-color: rgba(0, 0, 0, 1);
+}
+.text-class {
+  width: 908px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+.length-class {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 34px;
+  font-family: SourceHanSansCN-Medium, SourceHanSansCN;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  line-height: 72px;
+}
+</style>
+
+<script>
+import func from '../../../js/func'
+const { _storage, _checkEmpty } = func
+export default {
+  props: ['values'],
+  data: {
+    checkEmpty: _checkEmpty
+  },
+  onInit() {
+  },
+  checkEmpty: ''
+}
+</script>
+

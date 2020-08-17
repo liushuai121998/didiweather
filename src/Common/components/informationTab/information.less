@@ -1,0 +1,107 @@
+@import '../../../config.less';
+.doc_page {
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  // margin-bottom: 200px;
+}
+.tabs {
+  flex: 1;
+  background-color: #ffffff;
+}
+.tab-content {
+  flex: 1;
+}
+.more_channel {
+  width: @ucScale * 50px;
+  height: @ucScale * 50px;
+  position:absolute;
+  margin-top: @ucScale * 70px;
+  margin-left: @ucScale * 970px;
+}
+
+.tab-bar {
+  height: @ucScale * 130px;
+  margin-left: @ucScale * 20px;
+  width: 90%;
+  border-color: #bbbbbb;
+  color: #bbbbbb;
+  border-bottom-width: 1px;
+  // background:linear-gradient(270deg, rgba(238,238,238,0) 0%, rgba(66,66,66,1) 100%);
+}
+.tab-text {
+  padding-left: @ucScale * 50px;
+  text-align: center;
+  font-size: @ucScale * 46px;
+  font-family:SourceHanSansCN-Medium,SourceHanSansCN;
+  font-weight:500;
+  line-height: @ucScale * 69px;
+  color:rgba(66,66,66,1)
+}
+.tab-text:active {
+  color:#4787FF;
+  font-size: @ucScale * 56px;
+  line-height: @ucScale * 84px;
+}
+.item-class{
+  margin-top: @ucScale * 35px;
+  margin-left: @ucScale * 36px;
+  margin-right: @ucScale * 36px;
+  width: @ucScale * 1008px;
+  // flex-direction: column;
+  position: relative;
+  background-color: rgba(255,255,255,1);
+  border-radius: @ucScale * 15px;
+  padding: @ucScale * 50px
+}
+.tab-content-class{
+  background-color:rgba(247,248,249,1);
+}
+.list-class{
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.desktop-container{
+  background-image: url(../../images/desktop.png);
+  width: @ucScale * 1008px;
+  height: @ucScale * 190px;
+  position: absolute;
+  left: @ucScale * 36px;
+  bottom: @ucScale * 19px;
+  border-radius: @ucScale * 15px;
+  padding-left: @ucScale * 29px;
+  padding-right: @ucScale * 29px;
+  justify-content:space-between;
+  align-items: center;
+  .bottom-info{
+      width: @ucScale * 389px;
+      height: @ucScale * 47px;
+      font-size: @ucScale * 48px;
+      font-family:PingFangSC-Regular;
+      font-weight:bold;
+      color:rgba(71,71,71,1);
+      line-height: @ucScale * 36px;
+  }
+  .bottom-btn{
+      padding-left: @ucScale * 28px;
+      padding-right: @ucScale * 28px;
+      border-radius: @ucScale * 40px; 
+      color: #fcdb56;
+      background-color: #212227;
+      height: @ucScale * 80px;
+      font-size: @ucScale * 36px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:rgba(252,218,87,1);
+      line-height: @ucScale * 36px;
+  }
+}
+
+.load-more {
+  justify-content: center;
+  align-items: center;
+  height: @ucScale * 100px;
+}

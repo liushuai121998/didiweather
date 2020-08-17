@@ -1,0 +1,40 @@
+<template>
+    <div class="nav-bar" style="{{color ? `backgroundColor: ${color}` : ''}}">
+      <div class="nav-bar__left">
+        <slot name="left"></slot>
+      </div>
+      <text class="nav-bar__title">{{title}}</text>
+    </div>
+</template>
+
+<script>
+export default {
+    data: {
+        title: '滴滴天气',
+        color: ''
+    }
+}
+</script>
+
+<style lang="less" scoped>
+    .flex-layout(@dir: row, @h: flex-start, @v: flex-start) {
+        display: flex;
+        flex-direction: @dir;
+        justify-content: @h;
+        align-items: @v;
+    }
+    .nav-bar {
+        width: 100%;
+        height: 56px;
+        /* background-color: #07C5FB; */
+        position: fixed;
+        .flex-layout(row, center, center);
+        &__title {
+        font-size: 20px;
+        color: #fff;
+        font-weight: 500;
+        }
+    }
+</style>
+
+

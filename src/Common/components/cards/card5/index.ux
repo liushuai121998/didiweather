@@ -1,0 +1,64 @@
+<import name="bottom-div" src="../bottomDiv/index.ux"></import>
+ 
+<template>
+  <div class="card" onclick="onItemClick">
+    <div class="card">
+      <text class="card-main-title">{{values.title}}</text>
+      <div class="image-list">
+        <image src="{{item.url}}" for="(index,item) in values.thumbnails" class="image-item"></image>
+      </div>
+      <bottom-div values="{{values}}"></bottom-div>
+    </div>
+
+    <div if="{{values.item_type == 8}}" class="adSign">
+      <div class="adSignEl" onappear="adSinShow(values.id)"></div>
+    </div>
+  </div>
+</template>
+
+
+
+<style lang="less">
+@import "../../../css/common.less";
+
+.image-list {
+  flex-direction: row;
+  margin-top: 26px;
+  justify-content: space-between;
+  width: 100%;
+}
+.image-item {
+  width: 286px;
+  height: 212px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+</style>
+
+<script>
+import moment from "moment";
+import func from '../../../js/func'
+const { _storage, _checkEmpty } = func
+export default {
+  props: ['values'],
+  data: {
+    adHeight: 0,
+    checkEmpty: _checkEmpty
+  },
+  onInit() {
+    console.log(this.values, 'card5')
+
+  },
+  onItemClick() {
+    //console.info('氢离子打点记录：资讯卡片点击次数')
+    // //APP_STATISTICS.track_event("newsviews");
+    this.$dispatch('itemclick-trackUC', this.values)
+
+    this.$dispatch('itemclick-url', this.values.url)
+  },
+  adSinShow(id) {
+    this.$dispatch('adShowUc', id)
+  }
+}
+</script>
+

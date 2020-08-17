@@ -1,0 +1,69 @@
+<import name="nav-bar" src="../components/navbar.ux"></import>
+ 
+<template>
+    <div class="city-page">
+        <nav-bar title="选择城市" color="#07C5FB">
+            <div class="close" slot="left" @click="back">
+                <image src="/Common/images/close.png"></image>
+            </div>
+        </nav-bar>
+        <div class="search">
+            <image class="search-icon" src="/Common/images/search.png"></image>
+            <input @change="searchChange" type="text" placeholder="选择城市"></input>
+        </div>
+        <!-- 热门城市 -->
+        <div class="hot-city">
+            <text class="hot-city__title">热门城市</text>
+            <div class="hot-city__list">
+                <div class="hot-city__list__item" for="hotList" @click="chooseCity($item)">
+                    <text class="hot-city__list__item__name">{{$item.name}}</text>
+                </div>
+                <div class="hot-city__list__item hot-city__list__item--hidden"></div>
+            </div>
+        </div>
+        
+        <!-- 热门索引 -->
+        <div class="hot" if="{{showCity}}">
+            <block for="letterList">
+                <div class="letter-list" @click="letterCity($idx)">
+                    <text @click="letterCity($idx)">{{$item}}</text>
+                </div>
+            </block>
+        </div>
+
+        <!--  -->
+        <block if="{{showCity}}">
+            <list class="city-list" id="list">
+                <block for="(index, letter) in letterList">
+                    <list-item type="{{index}}" class="city-list__item">
+                        <div class="zm">
+                            <text>{{letter}}</text>
+                        </div>
+                        <div class="city-list__item__city" for="(index1, item) in cityList[letter]" @click="handleCity(item)" key="{{index1}}">
+                            <text class="city-list__item__city__name">{{item.name}}</text>
+                        </div>
+                    </list-item>
+                </block>
+            </list>
+        </block>
+        <block if="{{!showCity}}">
+            <list class="city-list">
+                <block for="(index, item) in searchCityList">
+                    <list-item type="{{index}}" class="city-list__item">
+                        <div class="city-list__item__city" @click="handleCity(item)">
+                            <text class="city-list__item__city__name">{{item.name}}</text>
+                        </div>
+                    </list-item>
+                </block>
+            </list>
+        </block>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less">
+  @import './index.less';
+</style>
+

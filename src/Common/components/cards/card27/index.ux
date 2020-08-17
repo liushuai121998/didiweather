@@ -1,0 +1,33 @@
+<template>
+  <div class="card">
+    <div class="card_title">
+      <text class="card-main-title">{{values.title}}</text>
+      <div class="card-info">
+        <text>{{values.Grab_time}}</text>
+        <text>{{values.Source_name}}</text>
+        <text>{{values.Cmt_cnt}}</text>
+      </div>
+    </div>
+    <image src="{{values.Thumbnails}}"></image>
+  </div>
+</template>
+
+
+
+<style lang="less">
+  @import "../../../css/common.less";
+
+  .card {
+    height: 308px;
+    width: 1008px;
+  }
+</style>
+
+<script>
+export default {
+  props: ['values'],
+  data: {
+  }
+}
+</script>
+

@@ -1,0 +1,70 @@
+{
+  "package": "com.didiweather.package",
+  "name": "滴滴天气",
+  "versionName": "1.0.2",
+  "versionCode": "2",
+  "minPlatformVersion": "1060",
+  "icon": "/Common/logo.png",
+  "features": [
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.shortcut"
+    },
+    { "name": "system.fetch" },
+    { "name": "system.clipboard" },
+    {"name":"service.ad"},
+    { "name": "system.device" },
+    {"name": "system.geolocation"},
+    {"name": "system.network"}
+  ],
+  "permissions": [
+    {
+      "origin": "*"
+    }
+  ],
+  "config": {
+    "logLevel": "off",
+    "designWidth": 360
+  },
+  "router": {
+    "entry": "Home",
+    "pages": {
+      "Home": {
+        "component": "index"
+      },
+      "CityList": {
+        "component": "index"
+      },
+      "Information": {
+        "component": "index"
+      }
+    }
+  },
+  "display": {
+    "titleBarBackgroundColor": "#07C5FB",
+    "titleBarTextColor": "#fff",
+    "menu": true,
+    "fullScreen": true,
+    "pages": {
+      "Home": {
+        "titleBarText": "滴滴天气",
+        "menu": false,
+        "titleBar": false
+      },
+      "CityList": {
+        "titleBarText": "选择城市",
+        "menu": false,
+        "titleBar": false
+      },
+      "Information": {
+        "titleBarText": "资讯",
+        "menu": false
+      }
+    }
+  }
+}

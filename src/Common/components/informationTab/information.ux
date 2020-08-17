@@ -1,0 +1,84 @@
+<import name="card1" src="../cards/card1/index.ux"></import>
+<import name="card2" src="../cards/card2/index.ux"></import>
+<import name="card3" src="../cards/card3/index.ux"></import>
+<import name="card4" src="../cards/card4/index.ux"></import>
+<import name="card5" src="../cards/card5/index.ux"></import>
+<import name="card20" src="../cards/card20/index.ux"></import>
+<import name="card27" src="../cards/card27/index.ux"></import>
+
+<template>
+  <div class="doc_page">
+    <div style="position:relative;height:100%">
+      <!-- 属性refreshing用于标识refresh组件的加载状态 -->
+      <!--tab组件-->
+      <tabs class="tabs" onchange="changeTabActive" index="0" show="{{!noDataFlag}}">
+        <tab-bar class="tab-bar" mode="scrollable">
+          <text class='tab-text' for="(index, value) in channelList">{{value.name}}</text>
+        </tab-bar>
+        <tab-content class="tab-content-class">
+          <div for="(ind, val) in channelList">
+            <refresh class="refresh" onrefresh="refresh" refreshing="{{isRefreshing}}" type="pulldown">
+              <list class="list-class" if="{{checkEmpty(listData,val.id,'items').length > 0}}" onscrollbottom="scrollbottom">
+                <block for="{{listData[val.id].items}}">
+                  <list-item class="item-class" type="style_type1" if="{{listData[val.id].articles[$item.id].style_type == 1}}">
+                    <card1 values="{{listData[val.id].articles[$item.id]}}"></card1>
+                  </list-item>
+                  <list-item class="item-class" type="style_type2" if="{{listData[val.id].articles[$item.id].style_type == 2}}">
+                    <card2 values="{{listData[val.id].articles[$item.id]}}"></card2>
+                  </list-item>
+                  <list-item class="item-class" type="style_type3" if="{{listData[val.id].articles[$item.id].style_type == 3}}">
+                    <card3 values="{{listData[val.id].articles[$item.id]}}"></card3>
+                  </list-item>
+                  <list-item class="item-class" type="style_type4" if="{{listData[val.id].articles[$item.id].style_type == 4}}">
+                    <card4 values="{{listData[val.id].articles[$item.id]}}"></card4>
+                  </list-item>
+                  <list-item class="item-class" type="style_type5" if="{{listData[val.id].articles[$item.id].style_type == 5}}">
+                    <card5 values="{{listData[val.id].articles[$item.id]}}"></card5>
+                  </list-item>
+                  <list-item class="item-class" type="style_type20" if="{{listData[val.id].articles[$item.id].style_type == 20 || listData[val.id].articles[$item.id].style_type == 27}}">
+                    <card20 values="{{listData[val.id].articles[$item.id]}}"></card20>
+                  </list-item>
+                </block>
+                <list-item type="loadMore" class="load-more" if="{{loadMore}}">
+                  <progress type="circular"></progress>
+                  <text>加载更多</text>
+                </list-item>
+              </list>
+              <div if="{{(checkEmpty(listData,val.id) && checkEmpty(listData,val.id,'items').length == 0) || checkEmpty(listData,val.id,'innerNoDataFlag')}}" style="flex-direction: column;align-items: center;width: 100%; justify-content: center;">
+                <image class="nodata" src="../../images/nodata.png"></image>
+                <text style="width:683px;height:40px;font-size:36px;margin-top:30px;font-family:SourceHanSansCN-Normal,SourceHanSansCN;font-weight:400;color:rgba(188,188,188,1);line-height:40px;text-align: center;">阿哦,好像没有数据!下拉刷新试试~</text>
+              </div>
+            </refresh>
+          </div>
+        </tab-content>
+      </tabs>
+      <div style="flex-direction: column;align-items: center;width: 100%; justify-content: center;" show="{{noDataFlag}}">
+        <image class="nodata" src="../../images/no_data.webp"></image>
+        <text style="width:483px;height:40px;font-size:36px;font-family:SourceHanSansCN-Normal,SourceHanSansCN;font-weight:400;color:rgba(188,188,188,1);line-height:40px;text-align: center;">目前没有网络~</text>
+        <image src="../../images/refresh.png" id="refresh" style="margin-top: 55px;width: 50px;height: 50px" onclick="oninitData"></image>
+      </div>
+    </div>
+</template>
+
+<script src="./information.js"></script>
+
+<style lang="less">
+@import "./information.less";
+.adSign {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50%;
+  background-color: #ccc;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none;
+}
+.adSignEl {
+  height: 10px;
+  background-color: #ff0000;
+}
+</style>

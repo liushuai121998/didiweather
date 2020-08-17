@@ -1,0 +1,74 @@
+<import name="short-cut" src="../components/shortcut"></import>
+<import name="nav-bar" src="../components/navbar.ux"></import>
+<import name="information" src="../Information"></import>
+ 
+<template>
+  <!-- template里只能有一个根节点 -->
+  <stack>
+    <block>
+      <image class="bg" src="{{bgImage}}"></image>
+    </block>
+    <div class="home">
+      <nav-bar>
+        <div slot="left" class="select-city" @click="toSelectCity">
+          <text>{{city}}</text>
+          <image src="/Common/images/drop-down-icon.png"></image>
+        </div>
+      </nav-bar>
+      <div class="content">
+        <div class="weather-condition">
+          <div class="weather-condition__header">
+            <!-- <div class="weather-condition__header__address">
+              <text>朝阳区</text>
+              <image src="/Common/images/location.png"></image>
+            </div> -->
+            <div class="weather-condition__header__date">
+              <text>{{nowDate}}</text>
+            </div>
+          </div>
+          <div class="weather-condition__content">
+            <div class="weather-condition__content__temperature">
+              <text class="temperature__num">{{now.temp}}</text>
+              <text class="temperature__unit">°C</text>
+            </div>
+            <text>相对湿度 {{now.rh}}%</text>
+            <text>{{now.text}} {{now.wind_dir}}{{now.wind_class}}</text>
+          </div>
+        </div>
+        <list class="weather-list">
+          <block for="hours">
+            <list-item class="weather-list__item" type="{{$idx}}">
+              <text class="weather-list__item__time">{{$item.day}}</text>
+              <image src="{{weatherImages[$item.wea]}}"></image>
+              <text class="weather-list__item__temp">{{$item.tem}}</text>
+            </list-item>
+          </block>
+        </list>
+        <list class="weather-date-list">
+          <block for="forecasts">
+            <list-item key="{{$idx}}" type="{{$idx}}" class="weather-date-list__item">
+              <text>{{$item.date | filterDate}}{{$item.week}}</text>
+              <div class="weather-date-list__item__weather">
+                <text>{{$item.text_day}}</text>
+                <image src="{{weatherImages[$item.text_day]}}"></image>
+              </div>
+              <text>{{$item.high}}°C/{{$item.low}}°C</text>
+            </list-item>
+          </block>
+        </list>
+      </div>
+      <!-- 资讯 -->
+      <div class="information">
+        <information />
+      </div>
+      <short-cut></short-cut>
+    </div>
+  </stack>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less">
+  @import './index.less';
+</style>

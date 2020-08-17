@@ -1,0 +1,76 @@
+<import name="informationtab" src="../Common/components/informationTab/information.ux"></import>
+<import name="nav-bar" src="../components/navbar.ux"></import>
+
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="home-page">
+    <!-- <nav-bar title="资讯" color="#07C5FB">
+        <div class="close" slot="left" @click="back">
+            <image src="/Common/images/close.png"></image>
+        </div>
+    </nav-bar> -->
+    <div class="homepageTab">
+      <informationtab my-channel-list="{{myChannelList}}"></informationtab>
+    </div>
+  </div>
+</template>
+
+<script>
+import {
+  createOrRetrieveInst
+} from '../Common/js/pubsub.js'
+import router from '@system.router'
+export default {
+  data: {
+    myChannelList: [],
+    showFocusModal: false
+  },
+  onInit() {
+    // 1. 实例化：并绑定在VM上
+    this.pubsubModel = createOrRetrieveInst()
+    // this.$on('BOTTOM_BAR_CHANGED', this.onBottomBarChanged)
+    // this.$on('show_focus_modal', this.onShowFocusModal)
+
+  },
+  onShow() {
+    // //APP_STATISTICS.page_show(this);//轻离子打点
+  },
+  onHide() {
+    // //APP_STATISTICS.page_hide(this);
+  },
+  onShowFocusModal(value) {
+    // this.showFocusModal = value.detail
+  },
+  onBackPress() {
+    router.back()
+    return true
+  },
+  back() {
+    router.replace({
+      uri: 'Home'
+    })
+  }
+}
+</script>
+
+<style lang="less">
+@import "../Common/css/home.less";
+@import "../Common/css/mixin.less";
+/* .home-page {
+  .flex-layout(column);
+  padding-top: 56px;
+} */
+.close {
+    position: fixed;
+    left: 20px;
+    top: 21px;
+    // background-color: red;
+    // height: 24px;
+    width: 60px;
+    .flex-layout(row, flex-start, center);
+    image {
+        width: 14px;
+        height: 14px;
+    }
+}
+</style>

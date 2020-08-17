@@ -1,0 +1,45 @@
+<import name="bottom-div" src="../bottomDiv/index.ux"></import>
+
+<template>
+  <div class="card" onclick="onItemClick">
+    <text class="card-main-title">{{values.title}}</text>
+    <bottom-div values="{{values}}"></bottom-div>
+    <div if="{{values.item_type == 8}}" class="adSign">
+      <div class="adSignEl" onappear="adSinShow(values.id)"></div>
+    </div>
+  </div>
+</template>
+
+
+
+<style lang="less">
+@import "../../../css/common.less";
+</style>
+
+
+
+<script>
+import moment from "moment";
+import func from '../../../js/func'
+const { _storage, _checkEmpty } = func
+export default {
+  props: ['values'],
+  data: {
+    checkEmpty: _checkEmpty
+  },
+  onInit() {
+    console.log(this.values, 'card4')
+
+  },
+  onItemClick() {
+    //console.info('氢离子打点记录：资讯卡片点击次数')
+    // //APP_STATISTICS.track_event("newsviews");
+    this.$dispatch('itemclick-trackUC', this.values)
+    this.$dispatch('itemclick-url', this.values.url)
+  },
+  adSinShow(id) {
+    this.$dispatch('adShowUc', id)
+  }
+}
+</script>
+
