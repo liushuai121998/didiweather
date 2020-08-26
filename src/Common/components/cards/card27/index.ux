@@ -16,10 +16,11 @@
 
 <style lang="less">
   @import "../../../css/common.less";
+  @import '../../../../config.less';
 
   .card {
-    height: 308px;
-    width: 1008px;
+    height: @ucScale * 308px;
+    width: @ucScale * 1008px;
   }
 </style>
 

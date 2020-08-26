@@ -4,10 +4,46 @@
  
 <template>
   <!-- template里只能有一个根节点 -->
-  <stack>
-    <block>
-      <image class="bg" src="{{bgImage}}"></image>
-    </block>
+  <div class="home-page">
+    <div class="home-header">
+      <div class="location">
+        <image class="location__icon" src="/Common/images/location-icon.png"></image>
+        <text>酒仙桥</text>
+        <image class="location__drop-icon" src="/Common/images/drop-icon.png"></image>
+      </div>
+      <div class="warning">
+        <image class="warning__icon" src="/Common/images/warning-icon.png"></image>
+        <text>预警</text>
+      </div>
+    </div>
+    <div class="home-content">
+        <!-- 天气信息 -->
+      <div class="weather">
+        <text class="weather__temp">24°</text>
+        <div class="weather__info">
+          <text>8月21日 星期四</text>
+          <div class="line"></div>
+          <text>空气 良</text>
+          <div class="line"></div>
+          <text>小雨</text>
+        </div>
+        <div class="weather__limit">
+          <text>限行尾号 3 和 8</text>
+        </div>
+      </div>
+      <!-- 今日热点 -->
+      <div class="daily-hot">
+        <div class="daily-hot__content">
+          <image src="/Common/images/daily-hot.png"></image>
+          <div class="line"></div>
+          <div class="daily-hot__content__info">
+            <text>景区已介入调查丹霞地貌被刻字，没有人没有人没有人没有人</text>
+            <text>TikTok计划下周起诉特朗普政府</text>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <image class="bg" src="{{bgImage}}"></image>
     <div class="home">
       <nav-bar>
         <div slot="left" class="select-city" @click="toSelectCity">
@@ -18,12 +54,11 @@
       <div class="content">
         <div class="weather-condition">
           <div class="weather-condition__header">
-            <!-- <div class="weather-condition__header__address">
-              <text>朝阳区</text>
-              <image src="/Common/images/location.png"></image>
-            </div> -->
             <div class="weather-condition__header__date">
               <text>{{nowDate}}</text>
+            </div>
+            <div class="information" @click="toInformation">
+              <text>精彩资讯>>></text>
             </div>
           </div>
           <div class="weather-condition__content">
@@ -35,35 +70,86 @@
             <text>{{now.text}} {{now.wind_dir}}{{now.wind_class}}</text>
           </div>
         </div>
-        <list class="weather-list">
-          <block for="hours">
-            <list-item class="weather-list__item" type="{{$idx}}">
-              <text class="weather-list__item__time">{{$item.day}}</text>
-              <image src="{{weatherImages[$item.wea]}}"></image>
-              <text class="weather-list__item__temp">{{$item.tem}}</text>
-            </list-item>
-          </block>
-        </list>
-        <list class="weather-date-list">
-          <block for="forecasts">
-            <list-item key="{{$idx}}" type="{{$idx}}" class="weather-date-list__item">
-              <text>{{$item.date | filterDate}}{{$item.week}}</text>
-              <div class="weather-date-list__item__weather">
-                <text>{{$item.text_day}}</text>
-                <image src="{{weatherImages[$item.text_day]}}"></image>
+        <list class="weather-condition__main">
+          <list-item type="a">
+            <list class="weather-list">
+              <block for="hours">
+                <list-item class="weather-list__item" type="{{$idx}}">
+                  <text class="weather-list__item__time">{{$item.day}}</text>
+                  <image src="{{weatherImages[$item.wea]}}"></image>
+                  <text class="weather-list__item__temp">{{$item.tem}}</text>
+                </list-item>
+              </block>
+            </list>
+          </list-item>
+          <list-item type="b">
+            <div class="weather-date-list">
+              <block for="forecasts">
+                <div key="{{$idx}}" type="{{$idx}}" class="weather-date-list__item">
+                  <text>{{$item.date | filterDate}}{{$item.week}}</text>
+                  <div class="weather-date-list__item__weather">
+                    <text>{{$item.text_day}}</text>
+                    <image src="{{weatherImages[$item.text_day]}}"></image>
+                  </div>
+                  <text>{{$item.high}}°C/{{$item.low}}°C</text>
+                </div>
+              </block>
+            </div>
+          </list-item>
+          <list-item type="c">
+            <div class="now-condition">
+              <div class="now-condition__item">
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__tips">今天：{{air_tips}}</text>
+                </div>
               </div>
-              <text>{{$item.high}}°C/{{$item.low}}°C</text>
-            </list-item>
-          </block>
+              <div class="now-condition__item">
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">体感温度</text>
+                  <text class="now-condition__item__info__text">{{now.feels_like}}℃</text>
+                </div>
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">相对湿度</text>
+                  <text class="now-condition__item__info__text">{{now.rh}}%</text>
+                </div>
+              </div>
+              <div class="now-condition__item">
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">风</text>
+                  <text class="now-condition__item__info__text">{{now.wind_class}} {{now.wind_dir}}</text>
+                </div>
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">天气现象</text>
+                  <text class="now-condition__item__info__text">{{now.text}}</text>
+                </div>
+              </div>
+              <div class="now-condition__item" if="{{now.prec_1h && now.clouds}}">
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">降水量（1h）</text>
+                  <text class="now-condition__item__info__text">{{now.prec_1h}}</text>
+                </div>
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">云量</text>
+                  <text class="now-condition__item__info__text">{{now.clouds}}%</text>
+                </div>
+              </div>
+              <div class="now-condition__item" if="{{now.vis && now.aqi}}">
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">能见度</text>
+                  <text class="now-condition__item__info__text">{{now.vis}}m</text>
+                </div>
+                <div class="now-condition__item__info">
+                  <text class="now-condition__item__info__label">空气质量</text>
+                  <text class="now-condition__item__info__text">{{now.aqi}}</text>
+                </div>
+              </div>
+            </div>
+          </list-item>
         </list>
-      </div>
-      <!-- 资讯 -->
-      <div class="information">
-        <information />
       </div>
       <short-cut></short-cut>
-    </div>
-  </stack>
+    </div> -->
+  </div>
 </template>
 
 <script src="./index.js">

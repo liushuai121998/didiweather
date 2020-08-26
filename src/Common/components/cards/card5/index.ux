@@ -20,18 +20,19 @@
 
 <style lang="less">
 @import "../../../css/common.less";
+@import '../../../../config.less';
 
 .image-list {
   flex-direction: row;
-  margin-top: 26px;
+  margin-top: @ucScale * 26px;
   justify-content: space-between;
   width: 100%;
 }
 .image-item {
-  width: 286px;
-  height: 212px;
+  width: @ucScale * 286px;
+  height: @ucScale * 212px;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: @ucScale * 15px;
 }
 </style>
 

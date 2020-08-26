@@ -13,27 +13,28 @@
 
 <style lang="less">
 @import "../../../css/common.less";
+@import '../../../../config.less';
 .video-class {
-  margin-top: 25px;
-  width: 908px;
-  height: 510px;
+  margin-top: @ucScale * 25px;
+  width: @ucScale * 908px;
+  height: @ucScale * 510px;
   background-color: rgba(0, 0, 0, 1);
 }
 .text-class {
-  width: 908px;
+  width: @ucScale * 908px;
   position: absolute;
-  top: 50px;
-  left: 50px;
+  top: @ucScale * 50px;
+  left: @ucScale * 50px;
 }
 .length-class {
   position: absolute;
-  bottom: 30px;
-  right: 50px;
-  font-size: 34px;
+  bottom: @ucScale * 30px;
+  right: @ucScale * 50px;
+  font-size: @ucScale * 34px;
   font-family: SourceHanSansCN-Medium, SourceHanSansCN;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  line-height: 72px;
+  line-height: @ucScale * 72px;
 }
 </style>
 

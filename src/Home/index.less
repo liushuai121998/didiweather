@@ -1,175 +1,338 @@
 @import '../Common/css/mixin.less';
-.home {
-    position: fixed;
-    left: 0;
-    // right: 0;
-    // bottom: 0;
-    top: 0;
-    width: 100%;
-    // height: 100%;
-    z-index: 101;
+.home-page {
     .flex-layout(column);
-    padding-top: 56px;
-    overflow: auto;
-    // background-image: url('../Common/images/qing-bg.png');
-    /* 等比例缩放背景图片到宽度为组件宽的一半 */
-    // background-size: 100%;
-    /* 在水平方向和竖直方向上重复绘制 */
-    // background-repeat: no-repeat;
 }
 
-
-.select-city {
-    position: fixed;
-    left: 16px;
-    top: 28px;
-    transform: translateY(-50%);
-    height: 24px;
-    .flex-layout(row, center, center);
-    border: 1px solid #D9D9D9;
-    border-radius: 2px;
-    padding: 0 10px;
-    text {
-        color: #fff;
-        font-size: 12px;
-        margin-right: 11px;
-    }
-    image {
-        width: 8px;
-    }
-}
-
-
-.content {
-    // flex: 2;
-    // background: linear-gradient(180deg,rgba(7,197,251,1) 0%,rgba(49,127,149,1) 100%);
-    .flex-layout(column);
-    padding: 0 16px;
+.home-header {
+    .flex-layout(row, space-between);
     width: 100%;
-    position: relative;
-    z-index: 100;
-    height: 732px;
-}
-
-.weather-condition {
-    padding-top: 10px;
-    width: 100%;
-    .flex-layout(column);
-    &__header {
-        width: 100%;
-        .flex-layout(row, space-between, center);
-        &__address {
-            .flex-layout(row, center, center);
-            text {
-                font-size: 14px;
-                color: #fff;
-                margin-right: 10px;
-                font-weight: 500;
-            }
-            image {
-                width: 16px;
-                height: 16px;
-            }
-        }
-        &__date {
-            text {
-                color: #fff;
-                font-size: 12px;
-            }
-        }
-    }
-
-    &__content {
-        .flex-layout(column, center, center);
-        padding-top: 44px;
-        padding-bottom: 40px;
-        border-bottom: 1px solid #DADADA;
-        width: 100%;
-        &__temperature {
-            .flex-layout(row);
-            .temperature__num {
-                font-size: 80px;
-                line-height: 96px;
-                color: #fff;
-                font-weight: 300;
-                margin-right: 10px;
-            }
-            .temperature__unit {
-                font-size: 36px;
-                color: #fff;
-                align-self: flex-start;
-                margin-top: 10px;
-            }
-        }
-        &>text {
-            color: #fff;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-    }
-}
-
-.weather-list {
-    .flex-layout(row);
-    height: 122px;
-    &__item {
-        margin-right: 20px;
-        .flex-layout(column, center, center);
-        text {
-            font-size: 12px;
-            color: #fff;
-        }
-        &__temp {
-            font-size: 14px;
-        }
-        image {
-            width: 24px;
+    height: 167px;
+    background-image: url(../Common/images/header-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 30px 15px 0 15px;
+    .location {
+        .flex-layout(row, center, center);
+        &__icon {
+            width: 18px;
             height: 20px;
-            margin: 20px 0;
         }
-    }
-    &__item--last {
-        margin-right: 0;
-    }
-}
-
-.weather-date-list {
-    .flex-layout(column);
-    height: 234px;
-    &__item {
-        .flex-layout(row, space-between, center);
-        height: 42px;
-        border-top: 1px solid #DADADA;
+        &__drop-icon {
+            width: 10px;
+            height: 7px;
+        }
         text {
-            font-size: 14px;
-            color: #fff;
+            color: #333;
+            font-size: 16px;
+            margin: 0 8px;
         }
-        &__weather {
-            .flex-layout(row, flex-start, center);
+    }
+    .warning {
+        .flex-layout(row, center, center);
+        &__icon {
+            width: 16px;
+            height: 16px;
+        }
+        text {
+            color: #333;
+            font-size: 16px;
+            margin-left: 5px;
+        }
+    }
+}
+.home-content {
+    .flex-layout(column);
+    position: relative;
+    top: -62px;
+}
+.weather {
+    .flex-layout(column);
+    padding: 0 15px;
+    &__temp {
+        font-size: 90px;
+        line-height: 104px;
+        color: #659BFE;
+        font-family: DINAlternate-Bold,DINAlternate;
+        font-weight: bold;       
+    }
+    &__info {
+        .flex-layout(row, flex-start, center);
+        text {
+            color: #000000;
+            font-size: 16px;
+            font-family: PingFangSC-Regular,PingFang SC;
+            font-weight: 400;
+            line-height: 22px;
+        }
+        .line {
+            width: 1px;
+            height: 10px;
+            background-color: #EAEAEA;
+            margin: 0 15px;
+        }
+    }
+    &__limit {
+        margin-top: 5px;
+        text {
+            font-size: 16px;
+            font-family: PingFangSC-Regular,PingFang SC;
+            font-weight: 400;
+            color:#000;
+            line-height: 22px;
+        }
+    }
+}
+// 今日热点
+.daily-hot {
+    margin-top: 30px;
+    padding: 0 15px;
+    &__content {
+        width: 100%;
+        height: 60px;
+        background-color: rgba(101, 155, 254, 0.1);
+        border-radius:2px;
+        box-shadow:0px 1px 5px 0px rgba(247,247,247,1);
+        border:1px solid rgba(247,247,247,1);
+        .flex-layout(row, flex-start, center);
+        padding: 0 15px;
+        image {
+            width: 32px;
+            height: 32px;
+        }
+        .line {
+            width: 1px;
+            height: 32px;
+            background-color: #E1EAFF;
+            margin: 0 15px;
+        }
+        &__info {
+            .flex-layout(column);
+            flex: 1;
             text {
-                width: 60px;
-                text-align: center;
-            }
-            image {
-                width: 24px;
-                height: 24px;
-                // margin-left: 10px;
+                color: #3C3C3C;
+                font-size: 13px;
+                font-family: PingFangSC-Regular,PingFang SC;
+                font-weight: 400;
+                line-height: 18px;
+                lines: 1;
+                text-overflow: ellipsis;
             }
         }
     }
 }
 
-.bg {
-    position: fixed;
-    left: 0;
-    top: 0;
-    // bottom: 0;
-    // right: 0;
-    width: 100%;
-    // height: 100%;
-}
+// .home {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 100%;
+//     z-index: 101;
+//     .flex-layout(column);
+//     padding-top: 56px;
+//     height: 100%;
+//     // overflow: auto;
+//     // background-image: url('../Common/images/qing-bg.png');
+//     /* 等比例缩放背景图片到宽度为组件宽的一半 */
+//     // background-size: 100%;
+//     /* 在水平方向和竖直方向上重复绘制 */
+//     // background-repeat: no-repeat;
+// }
 
-.information {
-    width: 100%;
-    .flex-layout(column);
-}
+
+// .select-city {
+//     position: fixed;
+//     left: 16px;
+//     top: 28px;
+//     transform: translateY(-50%);
+//     height: 24px;
+//     .flex-layout(row, center, center);
+//     border: 1px solid #D9D9D9;
+//     border-radius: 2px;
+//     padding: 0 10px;
+//     text {
+//         color: #fff;
+//         font-size: 12px;
+//         margin-right: 11px;
+//     }
+//     image {
+//         width: 8px;
+//     }
+// }
+
+
+// .content {
+//     // flex: 2;
+//     // background: linear-gradient(180deg,rgba(7,197,251,1) 0%,rgba(49,127,149,1) 100%);
+//     .flex-layout(column);
+//     padding: 0 16px;
+//     width: 100%;
+//     position: relative;
+//     z-index: 100;
+//     // height: 732px;
+// }
+// .weather-condition__main {
+//     flex: 1;
+//     .flex-layout(column);
+//     // overflow-y: scroll;
+//     height: 500px;
+// }
+// .weather-condition {
+//     padding-top: 10px;
+//     width: 100%;
+//     height: 255px;
+//     .flex-layout(column);
+//     &__header {
+//         padding: 0 16px;
+//         position: fixed;
+//         top: 56px;
+//         width: 100%;
+//         .flex-layout(row, space-between, center);
+//         &__address {
+//             .flex-layout(row, center, center);
+//             text {
+//                 font-size: 14px;
+//                 color: #fff;
+//                 margin-right: 10px;
+//                 font-weight: 500;
+//             }
+//             image {
+//                 width: 16px;
+//                 height: 16px;
+//             }
+//         }
+//         &__date {
+//             text {
+//                 color: #fff;
+//                 font-size: 12px;
+//             }
+//         }
+//     }
+
+//     &__content {
+//         .flex-layout(column, center, center);
+//         padding-top: 44px;
+//         padding-bottom: 40px;
+//         border-bottom: 1px solid #DADADA;
+//         width: 100%;
+//         &__temperature {
+//             .flex-layout(row);
+//             .temperature__num {
+//                 font-size: 80px;
+//                 line-height: 96px;
+//                 color: #fff;
+//                 font-weight: 300;
+//                 margin-right: 10px;
+//             }
+//             .temperature__unit {
+//                 font-size: 36px;
+//                 color: #fff;
+//                 align-self: flex-start;
+//                 margin-top: 10px;
+//             }
+//         }
+//         &>text {
+//             color: #fff;
+//             font-size: 14px;
+//             margin-top: 10px;
+//         }
+//     }
+// }
+
+// .weather-list {
+//     .flex-layout(row);
+//     height: 122px;
+//     &__item {
+//         margin-right: 20px;
+//         .flex-layout(column, center, center);
+//         text {
+//             font-size: 12px;
+//             color: #fff;
+//         }
+//         &__temp {
+//             font-size: 14px;
+//         }
+//         image {
+//             width: 24px;
+//             height: 20px;
+//             margin: 20px 0;
+//         }
+//     }
+//     &__item--last {
+//         margin-right: 0;
+//     }
+// }
+
+// .weather-date-list {
+//     .flex-layout(column);
+//     width: 100%;
+//     // height: 234px;
+//     border-bottom: 1px solid #fff;
+//     &__item {
+//         width: 100%;
+//         .flex-layout(row, space-between, center);
+//         height: 42px;
+//         border-top: 1px solid #DADADA;
+//         text {
+//             font-size: 14px;
+//             color: #fff;
+//         }
+//         &__weather {
+//             .flex-layout(row, flex-start, center);
+//             text {
+//                 width: 60px;
+//                 text-align: center;
+//             }
+//             image {
+//                 width: 24px;
+//                 height: 24px;
+//                 // margin-left: 10px;
+//             }
+//         }
+//     }
+// }
+
+// .bg {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 100%;
+//     height: 100%;
+//     z-index: 1;
+// }
+
+// .information {
+//     text  {
+//         color: #fff;
+//         font-size: 14px;
+//         font-weight: bold;
+//     }
+// }
+
+// .now-condition {
+//     width: 100%;
+//     .flex-layout(column);
+//     padding-bottom: 80px;
+//     &__item {
+//         width: 100%;
+//         border-bottom: 1px solid #fff;
+//         height: 72px;
+//         .flex-layout(row, space-between, center);
+//         &__info {
+//             flex: 1;
+//             .flex-layout(column);
+//             &__tips {
+//                 color: #fff;
+//                 font-size: 16px;
+//             }
+//             &__text {
+//                 font-size: 28px;
+//                 // font-weight: 500;
+//                 color: #fff;
+//             }
+//             &__label {
+//                 color: #D9D9D9;
+//                 font-size: 12px;
+//             }
+//         }
+//     }
+// }

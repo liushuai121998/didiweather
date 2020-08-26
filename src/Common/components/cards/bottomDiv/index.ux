@@ -18,12 +18,13 @@
 
 <style lang="less">
 @import "../../../css/common.less";
+@import '../../../../config.less';
 
 .img-class {
-  margin-top: 22px;
+  margin-top: @ucScale * 22px;
   object-fit: cover;
-  height: 510px;
-  width: 907px;
+  height: @ucScale * 510px;
+  width: @ucScale * 907px;
 }
 </style>
 

@@ -19,11 +19,13 @@
 
 <style lang="less">
 @import "../../../css/common.less";
+@import '../../../../config.less';
+
 .image-item {
-  width: 260px;
-  height: 208px;
+  width: @ucScale * 260px;
+  height: @ucScale * 208px;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: @ucScale * 15px;
 }
 </style>
 

@@ -1,6 +1,6 @@
 import router from '@system.router'
 import fetch from '@system.fetch'
-export default {
+export default Custom_page({
     data: {
         hotList: [{
             name: '北京',
@@ -75,4 +75,4 @@ export default {
     back() {
         router.back()
     }
-}
+})

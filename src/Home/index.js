@@ -1,6 +1,8 @@
 import router from '@system.router'
 import geolocation from '@system.geolocation'
 import fetch from '@system.fetch'
+import ad from '@service.ad'
+import prompt from '@system.prompt'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 const WEATHER_IMAGES = {
@@ -45,7 +47,7 @@ const BG_IMAGE = {
   "中雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/xue.png",
   "小雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/xue.png",
 }
-export default {
+export default Custom_page({
   data: {
     ak: 'ld9bGd2Gh10pwhCwHIly9QCpRh7nNj9V',
     city: '',
@@ -56,12 +58,14 @@ export default {
     nowDate: '',
     weatherImages: WEATHER_IMAGES,
     hours: [],
-    bgImage: 'https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/qing.png'
+    bgImage: 'https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/qing.png',
+    air_tips: ''
   },
   onInit() {
       this.getGeolocation()
       this.getData()
       this.nowDate = moment().format('M月DD日 dddd')
+      this.queryAdSwitch()
   },
   // 过滤日期
   filterDate(value) {
@@ -93,9 +97,10 @@ export default {
   // 获取数据
   getData() {
     fetch.fetch({
-      url: `http://api.map.baidu.com/weather/v1/?district_id=${this.cityId}&data_type=all&ak=${this.ak}`
+      url: `http://api.map.baidu.com/weather/v1/?district_id=${this.cityId}&data_type=all&ak=${this.ak}`,
+      responseType: 'json'
     }).then(res => {
-      var data = JSON.parse(res.data.data)
+      var data = res.data.data
       console.log(data)
       if(data.status === 0) {
         this.weather = data.result
@@ -104,22 +109,72 @@ export default {
         this.now = this.weather.now || {}
         this.bgImage = BG_IMAGE[this.now.text] || 'https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/qing.png'
         this.forecasts = this.weather.forecasts || []
-        this.getTimeWeather()
+        // this.getTimeWeather()
+        this.ykyWeather()
       }
     })
   },
   // 默认实时天气状况
   getTimeWeather(){
     fetch.fetch({
-      url: 'https://www.tianqiapi.com/api/?'+'city='+this.city + '&version='+'v1'+'&appid='+'28296657'+'&appsecret='+'VpcEL7ch'
+      url: 'https://www.tianqiapi.com/api/?'+'city='+this.city + '&version='+'v1'+'&appid='+'28296657'+'&appsecret='+'VpcEL7ch',
+      responseType: 'json'
     }).then(res => {
-      var data = JSON.parse(res.data.data)
-      var arr = data.data[0].hours
+      var data = res.data.data
+      console.log(data, 'this.hours')
+      var arr = data.data ? data.data[0].hours : []
       // arr.forEach(item => {
       //   item.hours = item.hours ? item.hours.split('时')[0] : ''
       // })
       this.hours = arr
-      // console.log(this.hours)
+    })
+  },
+  toInformation() {
+    router.push({
+      uri: 'Information'
+    })
+  },
+  // 获取广告开关
+  queryAdSwitch() {
+    fetch.fetch({
+      // 插屏
+      url: `https://quick-app-api.9g-tech.cn/api/positions/23`,
+      responseType: 'json'
+    }).then(res => {
+      try{
+        const {data} = res.data.data
+        if(data.ad_switch === 1) {
+          this.insertAd(data.corporation_key)
+        }
+      }catch(err) {
+        console.log(err)
+      }
+    })
+  },
+  //   插屏广告
+  insertAd(id) {
+    if(ad.createInterstitialAd) {
+      this.interstitialAd = ad.createInterstitialAd({
+          adUnitId: id
+      })
+      this.interstitialAd.onLoad(()=> {
+          this.interstitialAd.show();
+      })
+    }
+  },
+  onHide() {
+    this.interstitialAd && this.interstitialAd.destroy() 
+  },
+  // 易客云天气
+  ykyWeather() {
+    fetch.fetch({
+      url: `http://quick-app-api.9g-tech.cn/api/yky/weather?city=${this.city}`,
+      responseType: 'json'
+    }).then(res => {
+      var data = res.data.data
+      var arr = data.data ? data.data[0].hours : []
+      this.air_tips = data.data ? data.data[0].air_tips : ''
+      this.hours = arr
     })
   }
-}
+})
