@@ -1,0 +1,37 @@
+
+<template>
+    <div class="city-manage">
+        <div class="city-manage__list">
+            <div class="city-manage__list__item">
+                <div class="city-manage__list__item__content location">
+                    <text>自动定位</text>
+                    <image @click="toggleSwitch" src="{{isSwitch ? '/Common/images/switch-active.png' : '/Common/images/switch.png'}}"></image>
+                </div>
+                
+            </div>
+            <div class="city-manage__list__item">
+                <div class="city-manage__list__item__content">
+                    <text>丰宁满族自治县</text>
+                    <div class="content__weather">
+                        <text class="content__weather__text">小雨</text>
+                        <text>31℃</text>
+                    </div>
+                </div>
+            </div>
+            <div class="city-manage__list__item" @click="toSelectCity">
+                <div class="city-manage__list__item__content add-location">
+                    <image src="/Common/images/add-location.png"></image>
+                    <text>添加城市</text>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>
+

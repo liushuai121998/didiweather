@@ -32,7 +32,7 @@
     "designWidth": 375
   },
   "router": {
-    "entry": "Home",
+    "entry": "CityList",
     "pages": {
       "Home": {
         "component": "index"
@@ -42,13 +42,17 @@
       },
       "Information": {
         "component": "index"
+      },
+      "CityManage": {
+        "component": "index"
       }
     }
   },
   "display": {
-    "titleBarBackgroundColor": "#fff",
+    "titleBarBackgroundColor": "transparent",
     "titleBarTextColor": "#fff",
     "menu": true,
+    "statusBarImmersive": true,
     "pages": {
       "Home": {
         "titleBarText": "滴滴天气",
@@ -62,6 +66,12 @@
       },
       "Information": {
         "titleBarText": "资讯",
+        "menu": false
+      },
+      "CityManage": {
+        "titleBarText": "城市管理",
+        "titleBarTextColor": "#000",
+        "titleBarBackgroundColor": "#fff",
         "menu": false
       }
     }

@@ -5,6 +5,7 @@ import ad from '@service.ad'
 import prompt from '@system.prompt'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+
 const WEATHER_IMAGES = {
   "晴": "/Common/images/weather1.png",
   "多云": "/Common/images/duoyun.png",
@@ -59,7 +60,43 @@ export default Custom_page({
     weatherImages: WEATHER_IMAGES,
     hours: [],
     bgImage: 'https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/qing.png',
-    air_tips: ''
+    air_tips: '',
+    tabbarData: [
+      {
+          iconPath: '/Common/images/fuli-icon.png',
+          selectedIconPath: '/Common/images/fuli-icon-active.png',
+          pagePath: '/Home',
+          text: '天气',
+          active: true,
+          imageStyle: {
+            width: '20px',
+            height: '20px'
+          }
+      },
+      {
+          iconPath: '/Common/images/fuli-icon.png',
+          selectedIconPath: '/Common/images/fuli-icon-active.png',
+          pagePath: '/Home',
+          text: '领福利',
+          active: false,
+          imageStyle: {
+            width: '20px',
+            height: '20px'
+          }
+      },
+      {
+          iconPath: '/Common/images/my-icon.png',
+          selectedIconPath: '/Common/images/my-icon-active.png',
+          pagePath: '/Home',
+          text: '我的',
+          active: false,
+          imageStyle: {
+            width: '14px',
+            height: '20px'
+          }
+      }
+    ],
+    forecastList: new Array(15).fill({})
   },
   onInit() {
       this.getGeolocation()
@@ -77,7 +114,7 @@ export default Custom_page({
   },
   toSelectCity() {
     router.push({
-      uri: 'CityList',
+      uri: 'CityManage',
     })
     // router.push({
     //   uri: 'Information'

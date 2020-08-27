@@ -20,6 +20,7 @@
     "less-loader": "~6.2.0"
   },
   "dependencies": {
+    "apex-ui": "~1.8.1",
     "crypto-js": "~4.0.0",
     "moment": "~2.27.0"
   },

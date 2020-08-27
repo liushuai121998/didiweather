@@ -1,34 +1,53 @@
 <import name="short-cut" src="../components/shortcut"></import>
 <import name="nav-bar" src="../components/navbar.ux"></import>
 <import name="information" src="../Information"></import>
- 
+<import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
+<import name="chart" src="../components/chart.ux"></import>
+
 <template>
   <!-- template里只能有一个根节点 -->
   <div class="home-page">
     <div class="home-header">
-      <div class="location">
-        <image class="location__icon" src="/Common/images/location-icon.png"></image>
+      <div class="location" @click="toSelectCity">
         <text>酒仙桥</text>
-        <image class="location__drop-icon" src="/Common/images/drop-icon.png"></image>
+        <image class="location__icon" src="/Common/images/location-icon.png"></image>
+        <image class="location__drop-icon" src="/Common/images/drop-down-icon.png"></image>
       </div>
-      <div class="warning">
-        <image class="warning__icon" src="/Common/images/warning-icon.png"></image>
-        <text>预警</text>
+      <div class="today-weather">
+        <div class="today-weather__content">
+          <text class="weather__temp">24°</text>
+          <div class="weather__info">
+            <text>10℃/30℃</text>
+            <div class="line"></div>
+            <text>空气良</text>
+            <div class="line"></div>
+            <div class="weather__info__text">
+              <text>小雨</text>
+              <image src="/Common/images/yu.png"></image>
+            </div>
+          </div>
+        </div>
+        <div class="weather-yujing">
+          <div class="weather-yujing__content">
+            <image src="/Common/images/yujing.png"></image>
+            <text>查看预警</text>
+          </div>
+        </div>
       </div>
     </div>
     <div class="home-content">
         <!-- 天气信息 -->
       <div class="weather">
-        <text class="weather__temp">24°</text>
-        <div class="weather__info">
+        <div class="weather__limit">
           <text>8月21日 星期四</text>
           <div class="line"></div>
-          <text>空气 良</text>
-          <div class="line"></div>
-          <text>小雨</text>
-        </div>
-        <div class="weather__limit">
-          <text>限行尾号 3 和 8</text>
+          <text class="weather__limit__text">限行尾号</text>
+          <div class="weather__limit__num">
+            <text>3</text>
+          </div>
+          <div class="weather__limit__num">
+            <text>8</text>
+          </div>
         </div>
       </div>
       <!-- 今日热点 -->
@@ -42,113 +61,87 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- <image class="bg" src="{{bgImage}}"></image>
-    <div class="home">
-      <nav-bar>
-        <div slot="left" class="select-city" @click="toSelectCity">
-          <text>{{city}}</text>
-          <image src="/Common/images/drop-down-icon.png"></image>
+      <!-- 今日天气 -->
+      <div class="weather-times">
+        <div class="weather-times__title">
+          <text>今日天气</text>
         </div>
-      </nav-bar>
-      <div class="content">
-        <div class="weather-condition">
-          <div class="weather-condition__header">
-            <div class="weather-condition__header__date">
-              <text>{{nowDate}}</text>
-            </div>
-            <div class="information" @click="toInformation">
-              <text>精彩资讯>>></text>
-            </div>
-          </div>
-          <div class="weather-condition__content">
-            <div class="weather-condition__content__temperature">
-              <text class="temperature__num">{{now.temp}}</text>
-              <text class="temperature__unit">°C</text>
-            </div>
-            <text>相对湿度 {{now.rh}}%</text>
-            <text>{{now.text}} {{now.wind_dir}}{{now.wind_class}}</text>
-          </div>
-        </div>
-        <list class="weather-condition__main">
-          <list-item type="a">
-            <list class="weather-list">
-              <block for="hours">
-                <list-item class="weather-list__item" type="{{$idx}}">
-                  <text class="weather-list__item__time">{{$item.day}}</text>
-                  <image src="{{weatherImages[$item.wea]}}"></image>
-                  <text class="weather-list__item__temp">{{$item.tem}}</text>
-                </list-item>
-              </block>
-            </list>
-          </list-item>
-          <list-item type="b">
-            <div class="weather-date-list">
-              <block for="forecasts">
-                <div key="{{$idx}}" type="{{$idx}}" class="weather-date-list__item">
-                  <text>{{$item.date | filterDate}}{{$item.week}}</text>
-                  <div class="weather-date-list__item__weather">
-                    <text>{{$item.text_day}}</text>
-                    <image src="{{weatherImages[$item.text_day]}}"></image>
-                  </div>
-                  <text>{{$item.high}}°C/{{$item.low}}°C</text>
-                </div>
-              </block>
-            </div>
-          </list-item>
-          <list-item type="c">
-            <div class="now-condition">
-              <div class="now-condition__item">
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__tips">今天：{{air_tips}}</text>
-                </div>
-              </div>
-              <div class="now-condition__item">
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">体感温度</text>
-                  <text class="now-condition__item__info__text">{{now.feels_like}}℃</text>
-                </div>
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">相对湿度</text>
-                  <text class="now-condition__item__info__text">{{now.rh}}%</text>
-                </div>
-              </div>
-              <div class="now-condition__item">
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">风</text>
-                  <text class="now-condition__item__info__text">{{now.wind_class}} {{now.wind_dir}}</text>
-                </div>
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">天气现象</text>
-                  <text class="now-condition__item__info__text">{{now.text}}</text>
-                </div>
-              </div>
-              <div class="now-condition__item" if="{{now.prec_1h && now.clouds}}">
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">降水量（1h）</text>
-                  <text class="now-condition__item__info__text">{{now.prec_1h}}</text>
-                </div>
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">云量</text>
-                  <text class="now-condition__item__info__text">{{now.clouds}}%</text>
-                </div>
-              </div>
-              <div class="now-condition__item" if="{{now.vis && now.aqi}}">
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">能见度</text>
-                  <text class="now-condition__item__info__text">{{now.vis}}m</text>
-                </div>
-                <div class="now-condition__item__info">
-                  <text class="now-condition__item__info__label">空气质量</text>
-                  <text class="now-condition__item__info__text">{{now.aqi}}</text>
-                </div>
-              </div>
-            </div>
+        <chart />
+      </div>
+      <!-- 广告位 -->
+      <div class="ad-wrap">
+        <div class="ad"></div>
+      </div>
+      <!-- 15天预报 -->
+      <div class="weather-forecast">
+        <div class="weather-forecast__title"><text>15天预报</text></div>
+        <list class="weather-forecast__list">
+          <list-item for="(item, index) in forecastList" class="weather-forecast__list__item" type="{{index}}">
+            <text class="week">周一</text>
+            <text class="week-day">今天</text>
+            <text class="weather-text">小雨</text>
+            <text class="max-temp">28°</text>
+            <text class="min-temp">22°</text>
           </list-item>
         </list>
       </div>
-      <short-cut></short-cut>
-    </div> -->
+      <!-- 生活指数 -->
+      <div class="living-index">
+        <div class="living-index__title">
+          <text>生活指数</text>
+        </div>
+        <list class="living-index__list">
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/tiganwendu.png"></image>
+            <text class="living-index__list__item__temp">39°</text>
+            <text class="living-index__list__item__text">体感温度</text>
+          </list-item>
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/kongqizhiliang.png"></image>
+            <text class="living-index__list__item__temp">高</text>
+            <text class="living-index__list__item__text">空气质量</text>
+          </list-item>
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/xiangduishidu.png"></image>
+            <text class="living-index__list__item__temp">20%</text>
+            <text class="living-index__list__item__text">相对湿度</text>
+          </list-item>
+
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/max-temp.png"></image>
+            <text class="living-index__list__item__temp">40°</text>
+            <text class="living-index__list__item__text">最高温度</text>
+          </list-item>
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/fengli.png"></image>
+            <text class="living-index__list__item__temp">一般</text>
+            <text class="living-index__list__item__text">风力</text>
+          </list-item>
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/yunliang.png"></image>
+            <text class="living-index__list__item__temp">多</text>
+            <text class="living-index__list__item__text">云量</text>
+          </list-item>
+
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/min-temp.png"></image>
+            <text class="living-index__list__item__temp">12°</text>
+            <text class="living-index__list__item__text">最低温度</text>
+          </list-item>
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/fengxiang.png"></image>
+            <text class="living-index__list__item__temp">西北</text>
+            <text class="living-index__list__item__text">风向</text>
+          </list-item>
+          <list-item type="" class="living-index__list__item">
+            <image src="/Common/images/qixiangyujing.png"></image>
+            <text class="living-index__list__item__temp">黄</text>
+            <text class="living-index__list__item__text">气象预警</text>
+          </list-item>
+        </list>
+      </div>
+    </div>
+    <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
   </div>
 </template>
 

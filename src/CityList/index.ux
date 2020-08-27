@@ -8,8 +8,13 @@
             </div>
         </nav-bar>
         <div class="search">
-            <image class="search-icon" src="/Common/images/search.png"></image>
-            <input @change="searchChange" type="text" placeholder="选择城市"></input>
+            
+            <input @change="searchChange" type="text" placeholder="搜索城市">
+                <image class="search-icon" src="/Common/images/search-icon.png"></image>
+            </input>
+            <div class="cancel-search">
+                <text>取消</text>
+            </div>
         </div>
         <!-- 热门城市 -->
         <div class="hot-city">
@@ -18,12 +23,15 @@
                 <div class="hot-city__list__item" for="hotList" @click="chooseCity($item)">
                     <text class="hot-city__list__item__name">{{$item.name}}</text>
                 </div>
-                <div class="hot-city__list__item hot-city__list__item--hidden"></div>
             </div>
         </div>
         
         <!-- 热门索引 -->
         <div class="hot" if="{{showCity}}">
+            <div class="letter-list letter-list__text">
+                <text>定位</text>
+                <text>城市</text>
+            </div>
             <block for="letterList">
                 <div class="letter-list" @click="letterCity($idx)">
                     <text @click="letterCity($idx)">{{$item}}</text>

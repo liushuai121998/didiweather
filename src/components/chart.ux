@@ -1,0 +1,106 @@
+<template>
+  <div class="chart-wrap">
+    <!-- <list-item type=""> -->
+      <canvas id="chart" style="width: 600px; height: {{height}}px;"></canvas>
+    <!-- </list-item> -->
+  </div>
+</template>
+
+<script>
+  import Charts from 'apex-ui/components/charts/qacharts-min.js'
+
+  let $chart
+
+  export default {
+    props: {
+      width: {
+        default: 600,
+      },
+      height: {
+        default: 150,
+      },
+    },
+    data() {
+      return {}
+    },
+    onReady() {
+        console.log('xxx')
+        this.initChart()
+    },
+    initChart() {
+      $chart = new Charts({
+        element: this.$element('chart'),
+        width: this.width,
+        height: this.height,
+        // 图例配置
+        legend: {
+          // shapeWidth: 30,
+          // shapeHeight: 15,
+          show: false
+        },
+        xAxis: {
+          type: 'category',
+          data: ['1', '2', '3', '4', '5', '6', '7'],
+          axisTick: {
+            show: true,
+            lineStyle: {
+              color: 'red'
+            }
+          },
+          axisLine: {
+            show: false,
+          },
+          axisSplit: {
+            show: true,
+            lineStyle: {
+              color: 'red'
+            }
+          },
+          axisLabel: {
+            textStyle: {
+              color: '#000000',
+              fontSize: 12,
+            }
+          },
+          boundaryGap: false
+        },
+        yAxis: {
+          show: false,
+        },
+        series: [
+          {
+            name: '数据',
+            type: 'line',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            area: {
+              show: true,
+              color: {
+                linearGradient: [0, 0, 0, 1],
+                colors: [
+                  { offset: 0, color: '#A8C7FF' },
+                  { offset: 1, color: '#EEEEEE' },
+                ],
+              },
+            },
+            smooth: true,
+            line: {
+              lineWidth: 2,
+              color: '#88B1FD'
+            }
+          },
+        ],
+        onRenderComplete: (resolve) => {
+          console.log('chartLine renderComplete')
+          resolve &&resolve()
+        },
+      })
+    },
+  }
+</script>
+
+<style lang="less" scoped>
+.chart-wrap {
+  height: 150px;
+  overflow: auto;
+}
+</style>
