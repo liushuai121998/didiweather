@@ -32,7 +32,7 @@
     "designWidth": 375
   },
   "router": {
-    "entry": "CityList",
+    "entry": "Home",
     "pages": {
       "Home": {
         "component": "index"
@@ -66,6 +66,8 @@
       },
       "Information": {
         "titleBarText": "资讯",
+        "titleBarTextColor": "#000",
+        "titleBarBackgroundColor": "#fff",
         "menu": false
       },
       "CityManage": {

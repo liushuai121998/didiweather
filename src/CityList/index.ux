@@ -8,11 +8,11 @@
             </div>
         </nav-bar>
         <div class="search">
-            
-            <input @change="searchChange" type="text" placeholder="搜索城市">
+            <input value="{{searchValue}}" @change="searchChange" type="text" placeholder="搜索城市">
                 <image class="search-icon" src="/Common/images/search-icon.png"></image>
+                <image if="!!searchValue" @click="clearSearchValue" class="close-search" src="/Common/images/close-search.png"></image>
             </input>
-            <div class="cancel-search">
+            <div if="!!searchValue" @click="clearSearchValue" class="cancel-search">
                 <text>取消</text>
             </div>
         </div>

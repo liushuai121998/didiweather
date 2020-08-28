@@ -7,46 +7,68 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 
 const WEATHER_IMAGES = {
-  "晴": "/Common/images/weather1.png",
+  "晴": "/Common/images/qing.png",
+  "云": "/Common/images/duoyun.png",
   "多云": "/Common/images/duoyun.png",
-  "阴": "/Common/images/yintian.png",
-  "大雨": "/Common/images/dayu.png",
-  "中雨": "/Common/images/zhongyu.png",
-  "小雨": "/Common/images/xiaoyu.png",
-  "雷阵雨": "/Common/images/leizhenyu.png",
-  "雷电": "/Common/images/leidian.png",
-  "大雪": "/Common/images/daxue.png",
-  "中雪": "/Common/images/zhongxue.png",
-  "小雪": "/Common/images/xiaoxue.png",
-  "大雾": "/Common/images/dawu.png",
-  "中雾": "/Common/images/zhongwu.png",
-  "小雾": "/Common/images/xiaowu.png",
-  "大冰雹": "/Common/images/dabingbao.png",
-  "中冰雹": "/Common/images/zhongbingbao.png",
-  "小冰雹": "/Common/images/xiaobingbao.png",
+  "阴": "/Common/images/yin.png",
+  "雨": "/Common/images/yu.png",
+  "大雨": "/Common/images/yu.png",
+  "中雨": "/Common/images/yu.png",
+  "小雨": "/Common/images/yu.png",
+  "雷": "/Common/images/lei.png",
+  "雷阵雨": "/Common/images/lei.png",
+  "雷电": "/Common/images/lei.png",
+  "雪": "/Common/images/xue.png",
+  "大雪": "/Common/images/xue.png",
+  "中雪": "/Common/images/xue.png",
+  "小雪": "/Common/images/xue.png",
+  "雾": "/Common/images/wu.png",
+  "大雾": "/Common/images/wu.png",
+  "中雾": "/Common/images/wu.png",
+  "小雾": "/Common/images/wu.png",
+  "冰雹": "/Common/images/bingbao.png",
+  "大冰雹": "/Common/images/bingbao.png",
+  "中冰雹": "/Common/images/bingbao.png",
+  "小冰雹": "/Common/images/bingbao.png",
   "沙尘": "/Common/images/shachen.png"
 }
 
 const BG_IMAGE = {
-  "晴": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/qing.png",
-  "沙尘": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/shachen.png",
-  "阴": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yin.png",
-  "多云": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/duoyun.png",
-  "雷电": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/leidian.png",
-  "雷阵雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/leidian.png",
-  "雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yu.png",
-  "大雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yu.png",
-  "中雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yu.png",
-  "小雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yu.png",
-  "冰雹": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/bingbao.png",
-  "雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/wu.png",
-  "中雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/wu.png",
-  "大雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/wu.png",
-  "小雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/wu.png",
-  "雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/xue.png",
-  "大雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/xue.png",
-  "中雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/xue.png",
-  "小雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/xue.png",
+  "晴": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fair-weather.png",
+  "沙尘": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-sand-dust.png",
+  "阴": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-cloudy.png",
+  "阴天": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-cloudy.png",
+  "云": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-cloud.png",
+  "多云": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-cloud.png",
+  "雷": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-thunder.png",
+  "雷电": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-thunder.png",
+  "雷阵雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-thunder.png",
+  "雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
+  "大雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.pnghttps://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yu.png",
+  "中雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
+  "小雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
+  "冰雹": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-hail.png",
+  "大冰雹": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-hail.png",
+  "中冰雹": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-hail.png",
+  "小冰雹": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-hail.png",
+  "雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fog.png",
+  "中雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fog.png",
+  "大雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fog.png",
+  "小雾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fog.png",
+  "雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
+  "大雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
+  "中雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
+  "小雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
+}
+
+const DATE_WEEK = {
+  0: '周天',
+  1: '周一',
+  2: '周二',
+  3: '周三',
+  4: '周四',
+  5: '周五',
+  6: '周六'
 }
 export default Custom_page({
   data: {
@@ -96,7 +118,12 @@ export default Custom_page({
           }
       }
     ],
-    forecastList: new Array(15).fill({})
+    forecastList: new Array(15).fill({}),
+    alert: {},
+    tempObj: {},
+    xAxisData: [],
+    showChart: false,
+    bgImages: BG_IMAGE
   },
   onInit() {
       this.getGeolocation()
@@ -104,21 +131,43 @@ export default Custom_page({
       this.nowDate = moment().format('M月DD日 dddd')
       this.queryAdSwitch()
   },
-  // 过滤日期
+  // 过滤日期  今天 明天 后天 
   filterDate(value) {
     if(!value) {
       return ''
     } else {
-      return moment(value).format('M月DD月')
+      const dateText = moment(value).format('MM/DD')
+      const today = moment(new Date()).format('MM/DD')
+      const tomorrow = moment(new Date()).add(1,'days').format('MM/DD')
+      const nextTwoDay = moment(new Date()).add(2,'days').format('MM/DD')
+      let text = ''
+      if(today === dateText) {
+        text = '今天'
+      } else if(tomorrow === dateText) {
+        text = '明天'
+      } else if(nextTwoDay === dateText) {
+        text = '后天'
+      } else {
+        text = dateText
+      }
+      return text
+    }
+  },
+  filterWeek(date) {
+    if(!date) {
+      return ''
+    } else {
+      const d = moment(date).format('d')
+      return DATE_WEEK[d]
     }
   },
   toSelectCity() {
-    router.push({
-      uri: 'CityManage',
-    })
     // router.push({
-    //   uri: 'Information'
+    //   uri: 'CityManage',
     // })
+    router.push({
+      uri: 'CityList'
+    })
   },
   // 获取当前城市
   getGeolocation(){
@@ -140,12 +189,20 @@ export default Custom_page({
       var data = res.data.data
       console.log(data)
       if(data.status === 0) {
+        console.log(data.result)
         this.weather = data.result
         const location = this.weather.location || {}
         this.city = location.city.split('市')[0]
         this.now = this.weather.now || {}
+        // 预警
+        this.alert = this.weather.alert || {}
         this.bgImage = BG_IMAGE[this.now.text] || 'https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/qing.png'
         this.forecasts = this.weather.forecasts || []
+        // 最低 最高温度
+        this.tempObj = {
+          high: this.forecasts[0] ? this.forecasts[0].high : '',
+          low: this.forecasts[0] ? this.forecasts[0].low : ''
+        }
         // this.getTimeWeather()
         this.ykyWeather()
       }
@@ -212,6 +269,10 @@ export default Custom_page({
       var arr = data.data ? data.data[0].hours : []
       this.air_tips = data.data ? data.data[0].air_tips : ''
       this.hours = arr
+      this.xAxisData = arr.map(item => {
+        return item.day ? item.day.split('日')[1] : ''
+      })
+      this.showChart = true
     })
   }
 })

@@ -45,7 +45,7 @@ export default {
     /* padding: 0 20px; */
     position: fixed;
     left: 0;
-    bottom: 20px;
+    bottom: 60px;
 }
 .short-cut {
     width: 100%;

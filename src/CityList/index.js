@@ -30,7 +30,8 @@ export default Custom_page({
             "M", "N", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z",
         ],
         showCity: false,
-        searchCityList: []
+        searchCityList: [],
+        searchValue: ''
     },
     onInit() {
         this.getCityList()
@@ -63,6 +64,7 @@ export default Custom_page({
         })
     },
     searchChange(e) {
+        this.searchValue = e.value
         let allArr = []
         Object.keys(this.cityList).forEach(item => {
             allArr = [...allArr, ...(this.cityList[item] || [])]
@@ -74,5 +76,8 @@ export default Custom_page({
     },
     back() {
         router.back()
+    },
+    clearSearchValue() {
+        this.searchValue = ''
     }
 })

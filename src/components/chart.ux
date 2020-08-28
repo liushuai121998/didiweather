@@ -1,8 +1,6 @@
 <template>
   <div class="chart-wrap">
-    <!-- <list-item type=""> -->
-      <canvas id="chart" style="width: 600px; height: {{height}}px;"></canvas>
-    <!-- </list-item> -->
+      <canvas id="chart" style="width: 100%; height: {{height}}px;"></canvas>
   </div>
 </template>
 
@@ -19,13 +17,19 @@
       height: {
         default: 150,
       },
+      xData: {type: Array},
+      showChart: {type: Boolean},
+      chartData: {type: Array}
     },
-    data() {
-      return {}
+    data: {
     },
     onReady() {
-        console.log('xxx')
-        this.initChart()
+        this.$watch('showChart', (value) => {
+          if(value) {
+            console.log('xxxx')
+            this.initChart()
+          }
+        })
     },
     initChart() {
       $chart = new Charts({
@@ -40,21 +44,21 @@
         },
         xAxis: {
           type: 'category',
-          data: ['1', '2', '3', '4', '5', '6', '7'],
+          data: this.xData,
           axisTick: {
-            show: true,
-            lineStyle: {
-              color: 'red'
-            }
+            show: false,
+            // lineStyle: {
+            //   color: 'red'
+            // }
           },
           axisLine: {
             show: false,
           },
           axisSplit: {
-            show: true,
-            lineStyle: {
-              color: 'red'
-            }
+            show: false,
+            // lineStyle: {
+            //   color: 'red'
+            // }
           },
           axisLabel: {
             textStyle: {
@@ -71,7 +75,9 @@
           {
             name: '数据',
             type: 'line',
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: this.chartData.map(item => {
+              return item.tem ? Number(item.tem.split('℃')[0]) : 0
+            }),
             area: {
               show: true,
               color: {
@@ -102,5 +108,6 @@
 .chart-wrap {
   height: 150px;
   overflow: auto;
+  padding-right: 15px;
 }
 </style>
