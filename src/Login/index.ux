@@ -1,0 +1,27 @@
+<import name="my-spin" src="apex-ui/components/spin/index"></import>
+<template>
+    <div class="page-wrap">
+        <my-spin tip="登录中..." nested="{{true}}" loading="{{loginLoading}}">
+            <div slot="nested" style="flex-direction: column;width:100%;height:100%;align-items: center;">
+                <div class="login-wrap">
+                    <div class="phone _border">
+                        <input type="tel" placeholder="请输入手机号" maxlength="11" value="{{phone}}" @change="handlePhoneChange"></input>
+                    </div>
+                    <div class="code">
+                        <input type="number" placeholder="请输入验证码" maxlength="6" value="{{code}}" @change="handleCodeChange"></input>
+                        <text @click="handleGetCode">{{getCodeText}}</text>
+                    </div>
+                </div>
+                <text class="login-btn" @click="handleLoginClick">登录</text>
+            </div>
+        </my-spin>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>
+

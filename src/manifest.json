@@ -1,8 +1,8 @@
 {
   "package": "com.didiweather.package",
   "name": "滴滴天气",
-  "versionName": "1.0.5",
-  "versionCode": "5",
+  "versionName": "1.0.6",
+  "versionCode": "6",
   "minPlatformVersion": "1060",
   "icon": "/Common/logo.png",
   "features": [
@@ -32,7 +32,7 @@
     "designWidth": 375
   },
   "router": {
-    "entry": "Home",
+    "entry": "My",
     "pages": {
       "Home": {
         "component": "index"
@@ -44,6 +44,15 @@
         "component": "index"
       },
       "CityManage": {
+        "component": "index"
+      },
+      "Welfare": {
+        "component": "index"
+      },
+      "My": {
+        "component": "index"
+      },
+      "Login": {
         "component": "index"
       }
     }
@@ -57,7 +66,8 @@
       "Home": {
         "titleBarText": "滴滴天气",
         "menu": false,
-        "titleBar": false
+        "titleBar": false,
+        "titleBarTextColor": "#000"
       },
       "CityList": {
         "titleBarText": "选择城市",
@@ -72,6 +82,26 @@
       },
       "CityManage": {
         "titleBarText": "城市管理",
+        "titleBarTextColor": "#000",
+        "titleBarBackgroundColor": "#fff",
+        "menu": false
+      },
+      "Welfare": {
+        "titleBarText": "领福利",
+        "titleBarTextColor": "#000",
+        "titleBarBackgroundColor": "#fff",
+        "menu": false,
+        "titleBar": false
+      },
+      "My": {
+        "titleBarText": "我的",
+        "titleBarTextColor": "#000",
+        "titleBarBackgroundColor": "#fff",
+        "menu": false,
+        "titleBar": false
+      },
+      "Login": {
+        "titleBarText": "登录",
         "titleBarTextColor": "#000",
         "titleBarBackgroundColor": "#fff",
         "menu": false

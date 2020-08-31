@@ -46,6 +46,7 @@ export default {
     position: fixed;
     left: 0;
     bottom: 60px;
+    /* bottom: 10px; */
 }
 .short-cut {
     width: 100%;

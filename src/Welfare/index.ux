@@ -1,0 +1,21 @@
+<import name="short-cut" src="../components/shortcut"></import>
+<import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
+
+<template>
+    <div class="welfare">
+        <div class="fls-wrap" if="{{isFlsShow}}">
+            <web src="{{flsSrc}}" id="web" allowthirdpartycookies="{{true}}"></web>
+        </div>
+        <!-- 快捷方式 -->
+        <short-cut></short-cut>
+        <!-- <my-tabbar tabbar="{{tabbarData}}"></my-tabbar> -->
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>
+

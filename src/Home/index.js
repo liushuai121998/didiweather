@@ -98,7 +98,7 @@ export default Custom_page({
       {
           iconPath: '/Common/images/fuli-icon.png',
           selectedIconPath: '/Common/images/fuli-icon-active.png',
-          pagePath: '/Home',
+          pagePath: '/Welfare',
           text: '领福利',
           active: false,
           imageStyle: {
@@ -109,7 +109,7 @@ export default Custom_page({
       {
           iconPath: '/Common/images/my-icon.png',
           selectedIconPath: '/Common/images/my-icon-active.png',
-          pagePath: '/Home',
+          pagePath: '/My',
           text: '我的',
           active: false,
           imageStyle: {
@@ -123,13 +123,22 @@ export default Custom_page({
     tempObj: {},
     xAxisData: [],
     showChart: false,
-    bgImages: BG_IMAGE
+    bgImages: BG_IMAGE,
+    footerAd: {},
+    footerAdShow: false
   },
   onInit() {
       this.getGeolocation()
       this.getData()
       this.nowDate = moment().format('M月DD日 dddd')
-      this.queryAdSwitch()
+      // 插屏
+      this.queryAdSwitch(23, (key) => {
+        this.insertAd(key)
+      })
+      // 原生
+      this.queryAdSwitch(24, (key) => {
+        this.queryFooterAd(key)
+      })
   },
   // 过滤日期  今天 明天 后天 
   filterDate(value) {
@@ -229,16 +238,16 @@ export default Custom_page({
     })
   },
   // 获取广告开关
-  queryAdSwitch() {
+  queryAdSwitch(id, callback) {
     fetch.fetch({
       // 插屏
-      url: `https://quick-app-api.9g-tech.cn/api/positions/23`,
+      url: `https://quick-app-api.9g-tech.cn/api/positions/${id}`,
       responseType: 'json'
     }).then(res => {
       try{
         const {data} = res.data.data
         if(data.ad_switch === 1) {
-          this.insertAd(data.corporation_key)
+          callback && callback(data.corporation_key)
         }
       }catch(err) {
         console.log(err)
@@ -247,6 +256,7 @@ export default Custom_page({
   },
   //   插屏广告
   insertAd(id) {
+    console.log(id)
     if(ad.createInterstitialAd) {
       this.interstitialAd = ad.createInterstitialAd({
           adUnitId: id
@@ -256,8 +266,34 @@ export default Custom_page({
       })
     }
   },
+  // 原生广告
+  queryFooterAd(key) {
+    if(!ad.createNativeAd) {
+      return 
+    }
+    //   原生广告
+    this.nativeAd = ad.createNativeAd({
+        adUnitId: key
+    })
+    this.nativeAd.load()
+    this.nativeAd.onLoad((res) => {
+      this.footerAd = res.adList[0]
+      this.footerAdShow = true
+    })
+  },
+  reportAdClick() {
+    this.nativeAd && this.nativeAd.reportAdClick({
+        adId: this.footerAd.adId
+    })
+  },
+  reportAdShow() {
+    this.nativeAd && this.nativeAd.reportAdShow({
+        adId: this.footerAd.adId
+    })
+  },
   onHide() {
     this.interstitialAd && this.interstitialAd.destroy() 
+    this.nativeAd && this.nativeAd.destroy()
   },
   // 易客云天气
   ykyWeather() {

@@ -199,9 +199,11 @@
     &__list {
         .flex-layout(row);
         height: 120px;
+        // width: 360px;
         margin-top: 24px;
         &__item {
-            width: 56px;
+            // width: 56px;
+            width: 72px;
             border-left: 1px solid #EAEAEA;
             .flex-layout(column, flex-start, center);
             text {
@@ -250,16 +252,17 @@
         }
     }
     &__list {
-        .flex-layout(row, space-between);
-        columns: 3;
-        height: 314px;
+        .flex-layout(row, flex-start);
+        flex-wrap: wrap;
+        // height: 314px;
         padding: 0 30px;
         width: 100%;
         margin-bottom: 30px;
         &__item {
+            width: 54px;
             .flex-layout(column, flex-start, center);
             margin-top: 20px;
-            margin-right: 80px;
+            margin-right: 75px;
             &--right {
                 margin-right: 0px;
             }
@@ -290,16 +293,21 @@
     .ad {
         width: 100%;
         height: 87px;
-        background-color: #eee;
+        // background-color: #eee;
+        image {
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+        }
     }
 }
 
 .weather-times {
     .flex-layout(column);
     margin-top: 30px;
-    padding-left: 15px;
     margin-bottom: 24px;
     &__title {
+        padding-left: 15px;
         text {
             font-size: 16px;
             font-family: PingFangSC-Semibold, PingFang SC;

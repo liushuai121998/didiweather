@@ -1,0 +1,34 @@
+<import name="short-cut" src="../components/shortcut"></import>
+<import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
+
+<template>
+    <div class="my">
+        <div class="title-bar">
+            <text class="title">我的</text>
+        </div>
+        <div class="user-info">
+            <div class="avatar">
+                <img class="ava" src="{{avatarSrc}}" alt="" if="{{isLogin}}">
+                <img src="/Common/images/my_a.png" alt="" else>
+            </div>
+            <div class="user-name-wrap" @click="login">
+                <text class="user-name" if="{{isLogin}}">{{userName}}</text>
+                <text class="user-name" else>点我登录</text>
+                <text class="score">登录签到赢积分</text>
+            </div>
+            <text @click="logout" class="logout-btn" if="{{isLogin}}">退出登录</text>
+            <img src="/Common/images/back_icon.png" alt="" else>
+        </div>
+        <!-- 快捷方式 -->
+        <short-cut></short-cut>
+        <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>
+

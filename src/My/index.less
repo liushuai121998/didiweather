@@ -1,0 +1,73 @@
+@import '../Common/css/mixin.less';
+@ratio: 375 / 1080;
+.my {
+    .flex-layout(column);
+    background-color: #F6F6F6;
+}
+
+.title-bar {
+    width: 1080px * @ratio;
+    height: 240px * @ratio;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    .title {
+      width: 92px * @ratio;
+      height: 63px * @ratio;
+      font-size: 46px * @ratio;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: rgba(51, 51, 51, 1);
+      line-height: 63px * @ratio;
+    }
+}
+
+.user-info {
+    width: 993px * @ratio;
+    height: 230px * @ratio;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 14px * @ratio;
+    margin: 43px * @ratio;
+    padding: 43px * @ratio;
+    align-items: center;
+    .avatar {
+      width: 129px * @ratio;
+      height: 129px * @ratio;
+      border-radius: 64.5px * @ratio;
+      background-color: #f7f7ff;
+      justify-content: center;
+      align-items: center;
+      .ava {
+        width: 129px * @ratio;
+        height: 129px * @ratio;
+        border-radius: 64.5px * @ratio;
+      }
+    }
+    .user-name-wrap {
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      margin-left: 43px * @ratio;
+      .user-name {
+        height: 63px * @ratio;
+        font-size: 46px * @ratio;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 1);
+        line-height: 63px * @ratio;
+      }
+      .score {
+        height: 51px * @ratio;
+        font-size: 37px * @ratio;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(117, 117, 117, 1);
+        line-height: 51px * @ratio;
+      }
+    }
+    .logout-btn {
+      border: 1px solid #d0d0d0;
+      padding: 20px * @ratio;
+      border-radius: 13px * @ratio;
+    }
+}

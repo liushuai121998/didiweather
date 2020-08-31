@@ -28,6 +28,7 @@ export default {
       } catch (error) {
 
       }
-  }
+  },
+  _storage: util.storageHandle
 }
 </script>
