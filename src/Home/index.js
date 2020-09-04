@@ -1,10 +1,14 @@
 import router from '@system.router'
+import network from '@system.network'
+import device from '@system.device'
 import geolocation from '@system.geolocation'
 import fetch from '@system.fetch'
 import ad from '@service.ad'
 import prompt from '@system.prompt'
+import push from '@service.push'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+import ucConfig from '../uc-config.json'
 
 const WEATHER_IMAGES = {
   "晴": "/Common/images/qing.png",
@@ -44,7 +48,7 @@ const BG_IMAGE = {
   "雷电": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-thunder.png",
   "雷阵雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-thunder.png",
   "雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
-  "大雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.pnghttps://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/yu.png",
+  "大雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
   "中雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
   "小雨": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-rain.png",
   "冰雹": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-hail.png",
@@ -85,8 +89,8 @@ export default Custom_page({
     air_tips: '',
     tabbarData: [
       {
-          iconPath: '/Common/images/fuli-icon.png',
-          selectedIconPath: '/Common/images/fuli-icon-active.png',
+          iconPath: '/Common/images/home-icon.png',
+          selectedIconPath: '/Common/images/home-icon-active.png',
           pagePath: '/Home',
           text: '天气',
           active: true,
@@ -95,17 +99,17 @@ export default Custom_page({
             height: '20px'
           }
       },
-      {
-          iconPath: '/Common/images/fuli-icon.png',
-          selectedIconPath: '/Common/images/fuli-icon-active.png',
-          pagePath: '/Welfare',
-          text: '领福利',
-          active: false,
-          imageStyle: {
-            width: '20px',
-            height: '20px'
-          }
-      },
+      // {
+      //     iconPath: '/Common/images/fuli-icon.png',
+      //     selectedIconPath: '/Common/images/fuli-icon-active.png',
+      //     pagePath: '/Welfare',
+      //     text: '领福利',
+      //     active: false,
+      //     imageStyle: {
+      //       width: '20px',
+      //       height: '20px'
+      //     }
+      // },
       {
           iconPath: '/Common/images/my-icon.png',
           selectedIconPath: '/Common/images/my-icon-active.png',
@@ -125,7 +129,12 @@ export default Custom_page({
     showChart: false,
     bgImages: BG_IMAGE,
     footerAd: {},
-    footerAdShow: false
+    footerAdShow: false,
+    xxweihao: [],
+    cityCode: '',
+    values: [],
+    network: '',
+    topNews: []
   },
   onInit() {
       this.getGeolocation()
@@ -138,6 +147,22 @@ export default Custom_page({
       // 原生
       this.queryAdSwitch(24, (key) => {
         this.queryFooterAd(key)
+      })
+      // 限行尾号
+      this.xianxingWeiHao()
+
+      this.getAccessToken()
+      Promise.all([this.getNetwork(), this.getImei(), this.getDeviceInfo(), this.getRegId()]).then((values) => {
+        this.values = values
+        this.getTopNews()
+        this.authDevices({
+          quick_app_id: 2, //滴滴天气
+          imei: this.values[1].device,
+          device_type: `${this.values[2].manufacturer}|${this.values[2].model}`,
+          regid: this.values[3].regId
+        })
+      }, (err) => {
+        console.log('出错！', err)
       })
   },
   // 过滤日期  今天 明天 后天 
@@ -214,6 +239,8 @@ export default Custom_page({
         }
         // this.getTimeWeather()
         this.ykyWeather()
+        // 获取城市列表
+        this.getCityList()
       }
     })
   },
@@ -309,6 +336,152 @@ export default Custom_page({
         return item.day ? item.day.split('日')[1] : ''
       })
       this.showChart = true
+    })
+  },
+  // 限行尾号
+  xianxingWeiHao(city) {
+    fetch.fetch({
+      url: `https://rubbish.quickapp.qunzhu.me/web/index.php?store_id=2&r=yibiqian/weihao/xianxing`,
+      responseType: 'json',
+      method: 'POST',
+      header: {
+        "Content-Type": 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      data: {
+        city: city
+      }
+    }).then(({data: {data, code}}) => {
+      if(code === 200) {
+        this.xxweihao = data.result ? data.result.xxweihao : []
+      }
+    })
+  },
+  // 获取城市列表信息
+  getCityList() {
+    fetch.fetch({
+      url: 'https://rubbish.quickapp.qunzhu.me/web/index.php?store_id=2&r=yibiqian/weihao/citys',
+      responseType: 'json'
+    }).then(({data: {data}}) => {
+      if(data.code === 0) {
+        const cityList = data.data.result || []
+        cityList.forEach(item => {
+          if(item.cityname === this.city) {
+            this.cityCode = item.city
+          }
+        })
+        if(this.cityCode) {
+          this.xianxingWeiHao(this.cityCode)
+        }
+      }
+    })
+  },
+  // 获取资讯access_token
+  getAccessToken() {
+    fetch.fetch({
+      url: `https://quick-app-api.9g-tech.cn/api/uc-iflow/${ucConfig.app.app_id}`,
+      responseType: 'json'
+    }).then(({data: {data}}) => {
+      const accessToken = data.data.access_token
+    })
+  },
+  // 获取今日热点
+  getTopNews() {
+    let postData = {
+      app_id: ucConfig.app.app_id,
+      app_secret: ucConfig.app.app_secret,
+      app_name: ucConfig.name,
+      dn: this.values[1].device,
+      fr: 'android',
+      ve: '1.0.0.0',
+      nt: this.network,
+      imei: this.values[1].device,
+      oaid: this.values[1].device
+    }
+    
+    fetch.fetch({
+      url: `https://quick-app-api.9g-tech.cn/api/top-news/uc-iflow`,
+      method: 'POST',
+      responseType: 'json',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: postData
+    }).then(({data: {data}}) => {
+      let topNews = []
+      data.data.forEach((item, index) => {
+        const i = Math.floor(index / 2)
+        if(topNews[i]) {
+          topNews[i].push(item)
+        } else {
+          topNews[i] = [item]
+        }
+      })
+      this.topNews = [...topNews]
+    })
+  },
+  getNetwork() {
+    return new Promise((resolve, reject) => {
+      network.getType({
+        success: (data) => {
+          //console.log(data.type)
+          if (data.type == '2g' || data.type == '3g' || data.type == '4g' || data.type == '5g') {
+            this.network = 1
+          } else if (data.type == 'wifi') {
+            this.network = 2
+          } else {
+            this.network = 99
+          }
+          resolve(data)
+        },
+        fail: (data) => {
+          reject()
+        }
+      })
+    })
+  },
+  getImei() {
+    //console.log('Imei')
+    return new Promise((resolve, reject) => {
+      device.getId({
+        type: ['device', 'mac', 'user'],
+        success: (data) => {
+          //console.log(data, 'getImei')
+          resolve(data)
+        },
+        fail: (data) => {
+          reject()
+        }
+      })
+    })
+  },
+  getDeviceInfo() {
+    //console.log('设备信息')
+    return new Promise((resolve, reject) => {
+      device.getInfo({
+        success: (data) => {
+          resolve(data)
+        },
+        fail: () => {
+          reject()
+        }
+      })
+    })
+  },
+  getRegId() {
+    return this.$app.$def._storage.get('regid')
+  },
+  // 进入快应用获取设备信息
+  authDevices(data) {
+    fetch.fetch({
+      url: 'http://quick-app-api.9g-tech.cn/api/auth/devices',
+      responseType: 'json',
+      method: 'POST',
+      header: {
+        "Content-Type": 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      data
+    }).then(res => {
+      console.log(res, 'res....')
     })
   }
 })

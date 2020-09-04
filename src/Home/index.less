@@ -169,7 +169,7 @@
             margin: 0 15px;
         }
         &__info {
-            .flex-layout(column);
+            .flex-layout(column, center);
             flex: 1;
             text {
                 color: #3C3C3C;
@@ -298,6 +298,8 @@
             width: 100%;
             height: 100%;
             border-radius: 2px;
+            resize-mode: stretch;
+            object-fit: fill;
         }
     }
 }
@@ -316,4 +318,10 @@
             line-height: 22px;
         }
     }
+}
+
+.swiper {
+    .flex-layout(column);
+    flex: 1;
+    height: 100%;
 }

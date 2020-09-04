@@ -19,9 +19,14 @@
             <text @click="logout" class="logout-btn" if="{{isLogin}}">退出登录</text>
             <img src="/Common/images/back_icon.png" alt="" else>
         </div>
+        <div class="fls-wrap" if="{{isFlsShow}}">
+            <web src="{{flsSrc}}" id="web" allowthirdpartycookies="{{true}}"></web>
+        </div>
         <!-- 快捷方式 -->
-        <short-cut></short-cut>
-        <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
+        <block if="{{!isFlsShow}}">
+            <short-cut></short-cut>
+            <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
+        </block>
     </div>
 </template>
 

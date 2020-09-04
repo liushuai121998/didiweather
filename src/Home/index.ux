@@ -42,13 +42,14 @@
         <div class="weather__limit">
           <text>{{nowDate}}</text>
           <div class="line"></div>
-          <text class="weather__limit__text">限行尾号</text>
-          <div class="weather__limit__num">
-            <text>3</text>
-          </div>
-          <div class="weather__limit__num">
-            <text>8</text>
-          </div>
+          <block if="{{!!cityCode}}">
+            <text class="weather__limit__text">限行尾号</text>
+            <block for="(index, item) in xxweihao">
+              <div class="weather__limit__num">
+                <text>{{item}}</text>
+              </div>
+            </block>
+          </block>
         </div>
       </div>
       <!-- 今日热点 -->
@@ -56,10 +57,15 @@
         <div class="daily-hot__content" @click="toInformation">
           <image src="/Common/images/daily-hot.png"></image>
           <div class="line"></div>
-          <div class="daily-hot__content__info">
-            <text>景区已介入调查丹霞地貌被刻字，没有人没有人没有人没有人</text>
-            <text>TikTok计划下周起诉特朗普政府</text>
-          </div>
+          <swiper class="swiper" vertical="{{true}}" interval="{{3000}}" indicator="{{false}}" loop="{{true}}" autoplay="{{true}}">
+            <block for="(index, item) in topNews" key="{{index}}">
+              <div class="daily-hot__content__info">
+                <block for="(subIndex, subItem) in item" key="{{subIndex}}">
+                  <text>{{subItem}}</text>
+                </block>
+              </div>
+            </block>
+          </swiper>
         </div>
       </div>
       <!-- 今日天气 -->

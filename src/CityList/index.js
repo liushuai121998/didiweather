@@ -38,15 +38,17 @@ export default Custom_page({
     },
     chooseCity(item) {
         router.replace({
-            uri: 'Home',
+            uri: '/Home',
             params: { cityId: item.id }
         })
+        router.clear()
     },
     handleCity(item) {
         router.replace({
-            uri: 'Home',
+            uri: '/Home',
             params: { cityId: item.id }
         })
+        router.clear()
     },
     letterCity(idx) {
         this.$element('list').scrollTo({ index: idx })

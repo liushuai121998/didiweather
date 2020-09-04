@@ -67,13 +67,14 @@ export default {
     },
     getCode(phone) {
         return fetch.fetch({
-            url: 'http://quick-app-api.9g-tech.cn/api/auth/sms',
+            url: 'http://quick-app-api.9g-tech.cn/api/auth/extra/sms',
             method: 'POST',
             responseType: 'json',
             header: {
                 "Content-Typ": 'application/json; charset=utf-8'
             },
-            data: { phone: this.phone }
+            // quick_app_id 1 我要充电   2 滴滴天气   3 我要查快递
+            data: { phone: this.phone, quick_app_id: 2 }
         })
 
     },
@@ -95,11 +96,11 @@ export default {
                     // })
                 } else {
                     this.loginLoading = false
-                    prompt.showToast({ message: data.message })
+                    // prompt.showToast({ message: data.message })
                 }
                 this.loginLoading = false
             }).catch((err) => {
-                prompt.showToast({ message: err })
+                // prompt.showToast({ message: err })
             })
         } else {
             prompt.showToast({ message: '请输入正确的验证码' })
@@ -117,7 +118,8 @@ export default {
             data: {
                 phone: this.phone,
                 code: this.code,
-                imei: this.imei
+                imei: this.imei,
+                quick_app_id: 2
             }
         })
     },

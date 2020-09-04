@@ -2,11 +2,11 @@
  
 <template>
     <div class="city-page">
-        <nav-bar title="选择城市" color="#07C5FB">
+        <!-- <nav-bar title="选择城市" color="#07C5FB">
             <div class="close" slot="left" @click="back">
                 <image src="/Common/images/close.png"></image>
             </div>
-        </nav-bar>
+        </nav-bar> -->
         <div class="search">
             <input value="{{searchValue}}" @change="searchChange" type="text" placeholder="搜索城市">
                 <image class="search-icon" src="/Common/images/search-icon.png"></image>

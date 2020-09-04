@@ -7,7 +7,7 @@
             <web src="{{flsSrc}}" id="web" allowthirdpartycookies="{{true}}"></web>
         </div>
         <!-- 快捷方式 -->
-        <short-cut></short-cut>
+        <!-- <short-cut></short-cut> -->
         <!-- <my-tabbar tabbar="{{tabbarData}}"></my-tabbar> -->
     </div>
 </template>

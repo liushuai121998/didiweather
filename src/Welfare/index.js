@@ -1,5 +1,6 @@
 import fetch from '@system.fetch'
 import device from '@system.device'
+import router from '@system.router'
 export default Custom_page({
     data: {
         tabbarData: [
@@ -51,6 +52,21 @@ export default Custom_page({
     },
     onShow() {
         this.getAdSwitch()
+    },
+    onBackPress() {
+      this.$element('web').canBack({
+        callback: function (e) {
+          if (e) {
+            this.$element('web').back()
+          } else {
+            router.replace({
+              url: 'Home'
+            })
+          }
+        }.bind(this)
+      })
+      // 阻止默认行为，等待异步操作
+      return true
     },
     getImei() {
         return new Promise((resolve, reject) => {

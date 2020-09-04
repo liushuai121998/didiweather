@@ -4,6 +4,7 @@
 */
 import util from './util'
 import http from './http.js'
+import push from '@service.push'
 /**
  * 对接轻粒子sdk
  */
@@ -18,6 +19,20 @@ export default {
   $http: http,
   key: '24d597138c99ebe0e5153d2705e37550',
   onCreate() {
+      const brand = push.getProvider()
+        if (brand !== '') {
+            push.subscribe({
+                success: function (data) {
+                    util.storageHandle.set('regid', data.regId)
+                },
+                fail: function (data, code) {
+                    // prompt.showToast({ message: data })
+                },
+                complete: function () {
+                    console.log('push.subscribe completed')
+                }
+            })
+        }
       APP_STATISTICS.app_sta_init( this );  // 轻粒子sdk
   },
   //  监听应用错误的生命周期函数
