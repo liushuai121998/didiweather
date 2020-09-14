@@ -1,15 +1,14 @@
-<import name="short-cut" src="../components/shortcut"></import>
-<import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
-
+<import name="loading" src="../components/loading.ux"></import>
+ 
 <template>
-    <div class="welfare">
-        <div class="fls-wrap" if="{{isFlsShow}}">
-            <web src="{{flsSrc}}" id="web" allowthirdpartycookies="{{true}}"></web>
-        </div>
-        <!-- 快捷方式 -->
-        <!-- <short-cut></short-cut> -->
-        <!-- <my-tabbar tabbar="{{tabbarData}}"></my-tabbar> -->
+  <div class="web-wrap">
+    <div class="titlebar-wrap" @click="handleBack">
+      <div class="arrow"></div>
+      <text class="title">{{title}}</text>
     </div>
+    <web id="web" src="{{flsSrc}}" allowthirdpartycookies="{{true}}" onerror="handleErr" onpagefinish="pagedone"></web>
+    <loading if="{{loading}}"></loading>
+  </div>
 </template>
 
 <script src="./index.js">

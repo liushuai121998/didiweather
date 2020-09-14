@@ -1,0 +1,99 @@
+.detail {
+    flex-direction: column;
+    background-color: #F9F9F9;
+    padding-top: 71px;
+    &__img {
+        width: 68px;
+        height: 56px;
+        position: absolute;
+        right: 15px;
+        top: 112px;
+    }
+    &__title {
+        padding: 0 15px;
+        background-color: #FFF5EE;
+        .text {
+            font-size: 22px;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            color: #333333;
+            line-height: 30px;
+            margin-bottom: 10px;
+        }
+    }
+    &__content, &__definition, &__proposal {
+        padding: 0 15px;
+        .text {
+            font-size: 16px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #000000;
+            line-height: 25px;
+        }
+    }
+
+    &__content {
+        flex-direction: column;
+        background-color: #fff;
+        padding: 15px;
+        &__header {
+            align-items: center;
+            margin-bottom: 15px;
+            .status {
+                padding: 3px 2px;
+                background-color: #FFF5EE;
+                border-radius: 2px;
+                font-size: 10px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: #FF7C24;
+                line-height: 14px;
+                margin-right: 5px;
+            }
+            .time {
+                font-size: 11px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                color: #BFBFBF;
+                line-height: 16px;
+            }
+        }
+    }
+
+    &__definition, &__proposal {
+        flex-direction: column;
+        .title {
+            font-size: 18px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: bold;
+            color: #000000;
+            line-height: 24px;
+            margin-bottom: 15px;
+        }
+    }
+    &__definition {
+        padding-top: 16px;
+    }
+    &__proposal {
+        padding-top: 27px;
+    }
+}
+
+
+.nav-bar {
+    background-color: #FFF5EE;
+    height: 71px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding-left: 15px;
+    .back {
+        width: 20%;
+        height: 16px;
+        margin-top: 34px;
+    }
+    image {
+        height: 16px;
+    }
+}

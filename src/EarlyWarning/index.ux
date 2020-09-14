@@ -1,0 +1,69 @@
+<template>
+    <div class="warning-page">
+        <div class="swiper-bar">
+            <text @click="swiperBarClick(0)" class="swiper-bar__item {{currentIndex === 0 ? 'swiper-bar__item--active' : ''}}">
+                本地
+            </text>
+            <text @click="swiperBarClick(1)" class="swiper-bar__item {{currentIndex === 1 ? 'swiper-bar__item--active' : ''}}">
+                全国
+            </text>
+        </div>
+        <swiper class="swiper" index="{{currentIndex}}" @change="swiperChange" indicator="{{false}}" loop="{{false}}">
+            <list class="list" @scrollbottom="scrollbottom">
+                <block for="{{(index, item) in localList}}">
+                    <list-item class="list__item" type="{{index}}" @click="toDetail(item)">
+                        <image src="{{item.img}}"></image>
+                        <div class="list__item__content">
+                            <text class="list__item__content__title">{{item.title}}</text>
+                            <text class="list__item__content__time">
+                                {{item.publish_time}}
+                            </text>
+                        </div>
+                    </list-item>
+                </block>
+                <block if="{{localMoreText}}">
+                    <list-item class="more" type="more">
+                        <text>{{localMoreText}}</text>
+                    </list-item>
+                </block>
+                <block if="{{isLocalNoData}}">
+                    <list-item class="no-data">
+                        <image src="/Common/images/empty.png"></image>
+                        <text>当前暂无预警</text>
+                    </list-item>
+                </block>
+            </list>
+            <list class="list" @scrollbottom="allScrollbottom">
+                <block for="{{(index, item) in allList}}">
+                    <list-item class="list__item" type="{{index}}" @click="toDetail(item)">
+                        <image src="{{item.img}}"></image>
+                        <div class="list__item__content">
+                            <text class="list__item__content__title">{{item.title}}</text>
+                            <text class="list__item__content__time">
+                                {{item.publish_time}}
+                            </text>
+                        </div>
+                    </list-item>
+                </block>
+                <block if="{{allMoreText}}">
+                    <list-item class="more" type="more">
+                        <text>{{allMoreText}}</text>
+                    </list-item>
+                </block>
+                <block if="{{isAllNoData}}">
+                    <list-item class="no-data">
+                        <image src="/Common/images/empty.png"></image>
+                        <text>当前暂无预警</text>
+                    </list-item>
+                </block>
+            </list>
+        </swiper>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>

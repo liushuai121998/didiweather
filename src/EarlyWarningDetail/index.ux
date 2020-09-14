@@ -1,0 +1,37 @@
+<template>
+    <div class="detail">
+        <div class="nav-bar" style="backgroundColor: {{bg}}">
+            <div class="back" @click="back">
+                <image src="/Common/images/back-img.png"></image>
+            </div>
+        </div>
+        <div class="detail__title" style="backgroundColor: {{bg}}">
+            <text class="text">{{detail.title}}</text>
+        </div>
+        <div class="detail__content">
+            <div class="detail__content__header">
+                <text class="status" style="backgroundColor: {{bg}}; color: {{textColor}}">{{detail.level}}</text>
+                <text class="time">{{detail.publish_time}}</text>
+            </div>
+            <text class="text">{{detail.content}}</text>
+        </div>
+        <div class="detail__definition">
+            <text class="title">定义</text>
+            <text class="text">{{detail.definition}}</text>
+        </div>
+        <div class="detail__proposal">
+            <text class="title">防御建议</text>
+            <block for="(index, item) in proposal">
+                <text class="text" key="{{index}}">{{item}}</text>
+            </block>
+        </div>
+        <image class="detail__img" src="{{detail.img}}"></image>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+@import './index.less';
+</style>

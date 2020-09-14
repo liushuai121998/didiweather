@@ -28,11 +28,13 @@ export default {
         height: 56px;
         /* background-color: #07C5FB; */
         position: fixed;
+        left: 0;
+        top: 0;
         .flex-layout(row, center, center);
         &__title {
-        font-size: 20px;
-        color: #fff;
-        font-weight: 500;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 500;
         }
     }
 </style>

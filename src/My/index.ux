@@ -1,32 +1,70 @@
+<import name="action-sheet" src="apex-ui/components/action-sheet"></import>
 <import name="short-cut" src="../components/shortcut"></import>
 <import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
+<import name="my-dialog" src="apex-ui/components/dialog/index"></import>
 
 <template>
-    <div class="my">
+    <div class="wrap">
         <div class="title-bar">
-            <text class="title">我的</text>
+        <text class="title">我的</text>
         </div>
         <div class="user-info">
-            <div class="avatar">
-                <img class="ava" src="{{avatarSrc}}" alt="" if="{{isLogin}}">
-                <img src="/Common/images/my_a.png" alt="" else>
-            </div>
-            <div class="user-name-wrap" @click="login">
-                <text class="user-name" if="{{isLogin}}">{{userName}}</text>
-                <text class="user-name" else>点我登录</text>
-                <text class="score">登录签到赢积分</text>
-            </div>
-            <text @click="logout" class="logout-btn" if="{{isLogin}}">退出登录</text>
-            <img src="/Common/images/back_icon.png" alt="" else>
+        <div class="avatar">
+            <img class="ava" src="{{avatarSrc}}" alt="" if="{{isLogin}}">
+            <img src="/Common/images/my_a.png" alt="" else>
         </div>
-        <div class="fls-wrap" if="{{isFlsShow}}">
-            <web src="{{flsSrc}}" id="web" allowthirdpartycookies="{{true}}"></web>
+        <div class="user-name-wrap" @click="login">
+            <text class="user-name" if="{{isLogin}}">{{userName}}</text>
+            <text class="user-name" else>点我登录</text>
+            <text class="text">登录签到赢积分</text>
         </div>
-        <!-- 快捷方式 -->
-        <block if="{{!isFlsShow}}">
-            <short-cut></short-cut>
-            <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
-        </block>
+        <text @click="logout" class="logout-btn" if="{{isLogin}}">退出登录</text>
+        <img class="back_icon" src="/Common/images/back_icon.png" alt="" else>
+        </div>
+        <div class="nav-wrap">
+        <div class="nav-top">
+            <div class="nav-item" if="{{isFlsShow}}" @click="handleNavClick(1)">
+                <stack>
+                    <img src="/Common/images/nav4.png" alt="">
+                    <img class="recommend" src="/Common/images/rcmd.png" alt="">
+                </stack>
+                <text>省钱优惠</text>
+            </div>
+            <div class="nav-item" @click="handleNavClick(2)">
+                <img src="/Common/images/nav5.png" alt="">
+                <text>积分商城</text>
+            </div>
+            <div class="nav-item" @click="handleNavClick(3)">
+                <stack>
+                    <img src="/Common/images/my-yujing-icon.png" alt="">
+                    <div class="jinji-text">
+                        <text>紧急</text>
+                    </div>
+                </stack>
+                <text>天气预警</text>
+            </div>
+        </div>
+        <div class="nav-bottom">
+            <div class="nav-item" @click="handleNavClick(4)">
+                <img src="/Common/images/nav1.png" alt="">
+                <text>客服电话</text>
+            </div>
+            <div class="nav-item" @click="handleNavClick(5)">
+                <img src="/Common/images/nav2.png" alt="">
+                <text>隐私协议</text>
+            </div>
+        </div>
+        </div>
+        <swiper class="game-banner" if={{bannerShow}} autoplay="{{true}}" indicator="{{false}}" interval="{{3000}}">
+            <block for="{{(index, item) in banners}}">
+                <img if="{{item.ad_switch === 1}}" src="{{item.img_url}}" alt="" @click="handleGameBannerClick(item.link_url)">
+            </block>
+        </swiper>
+
+        <action-sheet id="actionSheet"></action-sheet>
+        <my-dialog visible="{{isLogoutShow}}" title="退出登录" content="确定要退出吗?" onaffirm="logoutAffrim" oncancel="logoutClose"></my-dialog>
+        <short-cut></short-cut>
+        <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
     </div>
 </template>
 

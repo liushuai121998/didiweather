@@ -1,79 +1,150 @@
-@import '../Common/css/mixin.less';
-@ratio: 375 / 1080;
-.my {
-    .flex-layout(column);
-    background-color: #F6F6F6;
-}
-
-.title-bar {
-    width: 1080px * @ratio;
-    height: 240px * @ratio;
+@import '../config.less';
+.wrap {
+  flex-direction: column;
+  background-color: #F0F0F0;
+  .title-bar {
+    width: 1080px * @ucScale;
+    height: 240px * @ucScale;
     background-color: #fff;
     justify-content: center;
     align-items: center;
     .title {
-      width: 92px * @ratio;
-      height: 63px * @ratio;
-      font-size: 46px * @ratio;
+      height: 63px * @ucScale;
+      font-size: 46px * @ucScale;
       font-family: PingFangSC-Semibold, PingFang SC;
       font-weight: 600;
       color: rgba(51, 51, 51, 1);
-      line-height: 63px * @ratio;
+      line-height: 63px * @ucScale;
     }
-}
-
-.user-info {
-    width: 993px * @ratio;
-    height: 230px * @ratio;
+  }
+  .user-info {
+    width: 993px * @ucScale;
+    height: 230px * @ucScale;
     background-color: rgba(255, 255, 255, 1);
-    border-radius: 14px * @ratio;
-    margin: 43px * @ratio;
-    padding: 43px * @ratio;
+    border-radius: 14px * @ucScale;
+    margin: 43px * @ucScale;
+    padding: 43px * @ucScale;
     align-items: center;
     .avatar {
-      width: 129px * @ratio;
-      height: 129px * @ratio;
-      border-radius: 64.5px * @ratio;
+      width: 129px * @ucScale;
+      height: 129px * @ucScale;
+      border-radius: 64.5px * @ucScale;
       background-color: #f7f7ff;
       justify-content: center;
       align-items: center;
       .ava {
-        width: 129px * @ratio;
-        height: 129px * @ratio;
-        border-radius: 64.5px * @ratio;
+        width: 129px * @ucScale;
+        height: 129px * @ucScale;
+        border-radius: 64.5px * @ucScale;
       }
     }
     .user-name-wrap {
       flex-direction: column;
       justify-content: space-between;
       flex: 1;
-      margin-left: 43px * @ratio;
+      margin-left: 43px * @ucScale;
       .user-name {
-        height: 63px * @ratio;
-        font-size: 46px * @ratio;
+        height: 63px * @ucScale;
+        font-size: 46px * @ucScale;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
         color: rgba(0, 0, 0, 1);
-        line-height: 63px * @ratio;
+        line-height: 63px * @ucScale;
+      }
+      .text {
+        color: #A7A7A7;
+        font-size: 12px;
       }
       .score {
-        height: 51px * @ratio;
-        font-size: 37px * @ratio;
+        height: 51px * @ucScale;
+        font-size: 37px * @ucScale;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: rgba(117, 117, 117, 1);
-        line-height: 51px * @ratio;
+        line-height: 51px * @ucScale;
       }
     }
     .logout-btn {
       border: 1px solid #d0d0d0;
-      padding: 20px * @ratio;
-      border-radius: 13px * @ratio;
-      font-size: 37px * @ratio;
+      padding: 20px * @ucScale;
+      border-radius: 13px * @ucScale;
+      font-size: 12px;
     }
-}
-
-.fls-wrap {
-  flex: 1;
-  width: 100%;
+    .back_icon {
+      height: 12px;
+    }
+  }
+  .nav-wrap {
+    width: 993px * @ucScale;
+    height: 600px * @ucScale;
+    background-color: #ffffff;
+    margin: 0 auto;
+    border-radius: 14px * @ucScale;
+    flex-direction: column;
+    justify-content: space-around;
+    .nav-top,
+    .nav-bottom {
+      justify-content: space-around;
+    }
+    .nav-item {
+      flex-direction: column;
+      align-items: center;
+      /* margin-top: 43px; */
+      flex: 1;
+      image {
+        width: 150px * @ucScale;
+        height: 150px * @ucScale;
+      }
+      stack {
+        justify-content: flex-end;
+        align-items: flex-start;
+      }
+      .recommend {
+        width: 90px * @ucScale;
+        height: 30px * @ucScale;
+        object-fit: contain;
+        right: -10px * @ucScale;
+      }
+      text {
+        height: 33px * @ucScale;
+        font-size: 35px * @ucScale;
+        font-family: PingFang SC;
+        font-weight: 400;
+        color: #333333;
+        margin-top: 16px * @ucScale;
+      }
+      .jinji-text {
+        width: 21px;
+        height: 13px;
+        background-color: #F96C5D;
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        justify-content: center;
+        text {
+          font-size: 8px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #fff;
+          line-height: 11px;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  .game-banner {
+    width: 980px * @ucScale;
+    height: 230px * @ucScale;
+    justify-content: center;
+    align-items: center;
+    margin: 30px * @ucScale 47px * @ucScale 47px * @ucScale;
+    /* margin-bottom: 40px; */
+    image {
+      /* width: 980px; */
+      /*
+      height: 100%; 
+      */
+      flex: 1;
+    }
+  }
 }

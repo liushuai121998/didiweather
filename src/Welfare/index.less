@@ -1,9 +1,26 @@
-@import '../Common/css/mixin.less';
-.welfare {
-    .flex-layout(column);
-    .fls-wrap {
-        width: 100%;
-        height: 100%;
-        margin-top: 30px;
+@import '../config.less';
+.web-wrap {
+    flex: 1;
+    flex-direction: column;
+    .titlebar-wrap {
+      height: 150px * @ucScale;
+      align-items: center;
+      padding-top: 20px;
+      .arrow {
+        width: 30px * @ucScale;
+        height: 30px * @ucScale;
+        margin-left: 80px * @ucScale;
+        border-left: 4px * @ucScale solid #000;
+        border-bottom: 4px * @ucScale solid #000;
+        transform: rotate(45deg);
+      }
+      .title {
+        height: 47px * @ucScale;
+        font-size: 48px * @ucScale;
+        margin-left: 30px * @ucScale;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: rgba(0, 0, 0);
+      }
     }
-}
+  }

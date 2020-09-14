@@ -483,5 +483,10 @@ export default Custom_page({
     }).then(res => {
       console.log(res, 'res....')
     })
+  },
+  toEarlyWarning() {
+    router.push({
+      uri: 'EarlyWarning'
+    })
   }
 })

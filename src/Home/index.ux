@@ -29,9 +29,12 @@
           </div>
         </div>
         <div class="weather-yujing">
-          <div class="weather-yujing__content">
+          <div class="weather-yujing__content" @click="toEarlyWarning">
             <image src="/Common/images/yujing.png"></image>
             <text>查看预警</text>
+          </div>
+          <div class="jinji">
+            <text>紧急</text>
           </div>
         </div>
       </div>
