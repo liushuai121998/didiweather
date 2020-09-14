@@ -45,10 +45,11 @@ export default {
   },
   onInit() {
     this.initSwiperBanner()
-    this.getFlsShow()
   },
-  onShow() {
+  show() {
+    console.log('ffff')
     this.getUserInfo()
+    this.getFlsShow()
   },
   handleGameBannerClick(link_url) {
     if (link_url) {

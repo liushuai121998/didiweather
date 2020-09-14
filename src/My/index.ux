@@ -6,7 +6,7 @@
 <template>
     <div class="wrap">
         <div class="title-bar">
-        <text class="title">我的</text>
+            <text class="title">我的</text>
         </div>
         <div class="user-info">
         <div class="avatar">
@@ -60,11 +60,10 @@
                 <img if="{{item.ad_switch === 1}}" src="{{item.img_url}}" alt="" @click="handleGameBannerClick(item.link_url)">
             </block>
         </swiper>
-
-        <action-sheet id="actionSheet"></action-sheet>
         <my-dialog visible="{{isLogoutShow}}" title="退出登录" content="确定要退出吗?" onaffirm="logoutAffrim" oncancel="logoutClose"></my-dialog>
-        <short-cut></short-cut>
-        <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
+        <!-- <short-cut></short-cut>
+        <my-tabbar tabbar="{{tabbarData}}"></my-tabbar> -->
+        <action-sheet id="actionSheet"></action-sheet>
     </div>
 </template>
 

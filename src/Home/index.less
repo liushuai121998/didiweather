@@ -1,6 +1,7 @@
 @import '../Common/css/mixin.less';
 .home-page {
     .flex-layout(column);
+    background-color: #F0F0F0;
 }
 
 .home-header {
@@ -345,4 +346,36 @@
     .flex-layout(column);
     flex: 1;
     height: 100%;
+}
+.tab-bar {
+    height: 58px;
+    &__item {
+        flex-direction: column;
+        align-items: center;
+        text {
+            font-size: 11px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #757575;
+            line-height: 16px;
+        }
+        .active-text {
+            color: #659BFE;
+        }
+    }
+    &__home {
+        image {
+            width: 22px;
+            height: 20px;
+        }
+    }
+    &__my {
+        image {
+            width: 14px;
+            height: 20px;
+        }
+    }
+}
+.tab-content-section {
+    flex-direction: column;
 }

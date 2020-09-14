@@ -134,7 +134,8 @@ export default Custom_page({
     cityCode: '',
     values: [],
     network: '',
-    topNews: []
+    topNews: [],
+    currentIndex: 0
   },
   onInit() {
       this.getGeolocation()
@@ -164,6 +165,9 @@ export default Custom_page({
       }, (err) => {
         console.log('出错！', err)
       })
+  },
+  onShow() {
+    this.$child('personal').show()
   },
   // 过滤日期  今天 明天 后天 
   filterDate(value) {
@@ -488,5 +492,8 @@ export default Custom_page({
     router.push({
       uri: 'EarlyWarning'
     })
+  },
+  changeTabactive({index}) {
+    this.currentIndex = index
   }
 })

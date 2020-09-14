@@ -3,159 +3,182 @@
 <import name="information" src="../Information"></import>
 <import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
 <import name="chart" src="../components/chart.ux"></import>
+<import name="personal" src="../My/index.ux"></import>
+ 
 
 <template>
   <!-- template里只能有一个根节点 -->
   <div class="home-page">
-    <div class="home-header">
-      <image class="home-header__bg" src="{{bgImages[now.text]}}"></image>
-      <div class="location" @click="toSelectCity">
-        <text>{{city}}</text>
-        <image class="location__icon" src="/Common/images/location-icon.png"></image>
-        <image class="location__drop-icon" src="/Common/images/drop-down-icon.png"></image>
-      </div>
-      <div class="today-weather">
-        <div class="today-weather__content">
-          <text class="weather__temp">{{now.temp}}</text>
-          <div class="weather__info">
-            <text>{{tempObj.low}}℃/{{tempObj.high}}℃</text>
-            <div class="line"></div>
-            <text>空气{{now.aqi ? now.api : ''}}</text>
-            <div class="line"></div>
-            <div class="weather__info__text">
-              <text>{{now.text}}</text>
-              <image src="{{weatherImages[now.text]}}"></image>
-            </div>
-          </div>
-        </div>
-        <div class="weather-yujing">
-          <div class="weather-yujing__content" @click="toEarlyWarning">
-            <image src="/Common/images/yujing.png"></image>
-            <text>查看预警</text>
-          </div>
-          <div class="jinji">
-            <text>紧急</text>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="home-content">
-        <!-- 天气信息 -->
-      <div class="weather">
-        <div class="weather__limit">
-          <text>{{nowDate}}</text>
-          <div class="line"></div>
-          <block if="{{!!cityCode}}">
-            <text class="weather__limit__text">限行尾号</text>
-            <block for="(index, item) in xxweihao">
-              <div class="weather__limit__num">
-                <text>{{item}}</text>
-              </div>
-            </block>
-          </block>
-        </div>
-      </div>
-      <!-- 今日热点 -->
-      <div class="daily-hot">
-        <div class="daily-hot__content" @click="toInformation">
-          <image src="/Common/images/daily-hot.png"></image>
-          <div class="line"></div>
-          <swiper class="swiper" vertical="{{true}}" interval="{{3000}}" indicator="{{false}}" loop="{{true}}" autoplay="{{true}}">
-            <block for="(index, item) in topNews" key="{{index}}">
-              <div class="daily-hot__content__info">
-                <block for="(subIndex, subItem) in item" key="{{subIndex}}">
-                  <text>{{subItem}}</text>
-                </block>
-              </div>
-            </block>
-          </swiper>
-        </div>
-      </div>
-      <!-- 今日天气 -->
-      <div class="weather-times">
-        <div class="weather-times__title">
-          <text>今日天气</text>
-        </div>
-        <chart show-chart="{{showChart}}" x-data="{{xAxisData}}" chart-data="{{hours}}"></chart>
-      </div>
-      <!-- 广告位 -->
-      <div class="ad-wrap" if="{{footerAdShow}}" onclick="reportAdClick" onappear="reportAdShow">
-        <div class="ad">
-          <image src="{{footerAd.imgUrlList ? footerAd.imgUrlList[0] : ''}}"></image>
-        </div>
-      </div>
-      <!-- 15天预报 -->
-      <div class="weather-forecast">
-        <div class="weather-forecast__title"><text>{{forecasts.length}}天预报</text></div>
-        <list class="weather-forecast__list">
-          <list-item for="(index, item) in forecasts" class="weather-forecast__list__item" type="{{index}}">
-            <text class="week">{{filterWeek(item.date)}}</text>
-            <text class="week-day">{{filterDate(item.date)}}</text>
-            <text class="weather-text">{{item.text_day}}</text>
-            <text class="max-temp">{{item.high}}℃</text>
-            <text class="min-temp">{{item.low}}℃</text>
-          </list-item>
-        </list>
-      </div>
-      <!-- 生活指数 -->
-      <div class="living-index">
-        <div class="living-index__title">
-          <text>生活指数</text>
-        </div>
-        <div class="living-index__list">
-          <div class="living-index__list__item">
-            <image src="/Common/images/tiganwendu.png"></image>
-            <text class="living-index__list__item__temp">{{now.feels_like}}</text>
-            <text class="living-index__list__item__text">体感温度</text>
-          </div>
-          <div class="living-index__list__item">
-            <image src="/Common/images/kongqizhiliang.png"></image>
-            <text class="living-index__list__item__temp">{{now.aqi || "无"}}</text>
-            <text class="living-index__list__item__text">空气质量</text>
-          </div>
-          <div class="living-index__list__item living-index__list__item--right">
-            <image src="/Common/images/xiangduishidu.png"></image>
-            <text class="living-index__list__item__temp">{{now.rh || "无"}}</text>
-            <text class="living-index__list__item__text">相对湿度</text>
-          </div>
-
-          <div class="living-index__list__item">
-            <image src="/Common/images/max-temp.png"></image>
-            <text class="living-index__list__item__temp">{{tempObj.high}}℃</text>
-            <text class="living-index__list__item__text">最高温度</text>
-          </div>
-          <div class="living-index__list__item">
-            <image src="/Common/images/fengli.png"></image>
-            <text class="living-index__list__item__temp">{{now.wind_class || "无"}}</text>
-            <text class="living-index__list__item__text">风力</text>
-          </div>
-          <div class="living-index__list__item living-index__list__item--right">
-            <image src="/Common/images/yunliang.png"></image>
-            <text class="living-index__list__item__temp">{{now.clouds || "无"}}</text>
-            <text class="living-index__list__item__text">云量</text>
-          </div>
-
-          <div class="living-index__list__item">
-            <image src="/Common/images/min-temp.png"></image>
-            <text class="living-index__list__item__temp">{{tempObj.low}}℃</text>
-            <text class="living-index__list__item__text">最低温度</text>
-          </div>
-          <div class="living-index__list__item">
-            <image src="/Common/images/fengxiang.png"></image>
-            <text class="living-index__list__item__temp">{{now.wind_dir || "无"}}</text>
-            <text class="living-index__list__item__text">风向</text>
-          </div>
-          <div class="living-index__list__item living-index__list__item--right">
-            <image src="/Common/images/qixiangyujing.png"></image>
-            <text class="living-index__list__item__temp">{{alert.level || "无"}}</text>
-            <text class="living-index__list__item__text">气象预警</text>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- 快捷方式 -->
     <short-cut></short-cut>
-    <my-tabbar tabbar="{{tabbarData}}"></my-tabbar>
+    <tabs onchange="changeTabactive" index="{{currentIndex}}">
+      <tab-content class="tab-content">
+          <div class="tab-content-section" show="{{currentIndex == 0}}">
+            <div class="home-header">
+              <image class="home-header__bg" src="{{bgImages[now.text]}}"></image>
+              <div class="location" @click="toSelectCity">
+                <text>{{city}}</text>
+                <image class="location__icon" src="/Common/images/location-icon.png"></image>
+                <image class="location__drop-icon" src="/Common/images/drop-down-icon.png"></image>
+              </div>
+              <div class="today-weather">
+                <div class="today-weather__content">
+                  <text class="weather__temp">{{now.temp}}</text>
+                  <div class="weather__info">
+                    <text>{{tempObj.low}}℃/{{tempObj.high}}℃</text>
+                    <div class="line"></div>
+                    <text>空气{{now.aqi ? now.api : ''}}</text>
+                    <div class="line"></div>
+                    <div class="weather__info__text">
+                      <text>{{now.text}}</text>
+                      <image src="{{weatherImages[now.text]}}"></image>
+                    </div>
+                  </div>
+                </div>
+                <div class="weather-yujing">
+                  <div class="weather-yujing__content" @click="toEarlyWarning">
+                    <image src="/Common/images/yujing.png"></image>
+                    <text>查看预警</text>
+                  </div>
+                  <div class="jinji">
+                    <text>紧急</text>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="home-content">
+                <!-- 天气信息 -->
+              <div class="weather">
+                <div class="weather__limit">
+                  <text>{{nowDate}}</text>
+                  <div class="line"></div>
+                  <block if="{{!!cityCode}}">
+                    <text class="weather__limit__text">限行尾号</text>
+                    <block for="(index, item) in xxweihao">
+                      <div class="weather__limit__num">
+                        <text>{{item}}</text>
+                      </div>
+                    </block>
+                  </block>
+                </div>
+              </div>
+              <!-- 今日热点 -->
+              <div class="daily-hot">
+                <div class="daily-hot__content" @click="toInformation">
+                  <image src="/Common/images/daily-hot.png"></image>
+                  <div class="line"></div>
+                  <swiper class="swiper" vertical="{{true}}" interval="{{3000}}" indicator="{{false}}" loop="{{true}}" autoplay="{{true}}">
+                    <block for="(index, item) in topNews" key="{{index}}">
+                      <div class="daily-hot__content__info">
+                        <block for="(subIndex, subItem) in item" key="{{subIndex}}">
+                          <text>{{subItem}}</text>
+                        </block>
+                      </div>
+                    </block>
+                  </swiper>
+                </div>
+              </div>
+              <!-- 今日天气 -->
+              <div class="weather-times">
+                <div class="weather-times__title">
+                  <text>今日天气</text>
+                </div>
+                <chart show-chart="{{showChart}}" x-data="{{xAxisData}}" chart-data="{{hours}}"></chart>
+              </div>
+              <!-- 广告位 -->
+              <div class="ad-wrap" if="{{footerAdShow}}" onclick="reportAdClick" onappear="reportAdShow">
+                <div class="ad">
+                  <image src="{{footerAd.imgUrlList ? footerAd.imgUrlList[0] : ''}}"></image>
+                </div>
+              </div>
+              <!-- 15天预报 -->
+              <div class="weather-forecast">
+                <div class="weather-forecast__title"><text>{{forecasts.length}}天预报</text></div>
+                <list class="weather-forecast__list">
+                  <list-item for="(index, item) in forecasts" class="weather-forecast__list__item" type="{{index}}">
+                    <text class="week">{{filterWeek(item.date)}}</text>
+                    <text class="week-day">{{filterDate(item.date)}}</text>
+                    <text class="weather-text">{{item.text_day}}</text>
+                    <text class="max-temp">{{item.high}}℃</text>
+                    <text class="min-temp">{{item.low}}℃</text>
+                  </list-item>
+                </list>
+              </div>
+              <!-- 生活指数 -->
+              <div class="living-index">
+                <div class="living-index__title">
+                  <text>生活指数</text>
+                </div>
+                <div class="living-index__list">
+                  <div class="living-index__list__item">
+                    <image src="/Common/images/tiganwendu.png"></image>
+                    <text class="living-index__list__item__temp">{{now.feels_like}}</text>
+                    <text class="living-index__list__item__text">体感温度</text>
+                  </div>
+                  <div class="living-index__list__item">
+                    <image src="/Common/images/kongqizhiliang.png"></image>
+                    <text class="living-index__list__item__temp">{{now.aqi || "无"}}</text>
+                    <text class="living-index__list__item__text">空气质量</text>
+                  </div>
+                  <div class="living-index__list__item living-index__list__item--right">
+                    <image src="/Common/images/xiangduishidu.png"></image>
+                    <text class="living-index__list__item__temp">{{now.rh || "无"}}</text>
+                    <text class="living-index__list__item__text">相对湿度</text>
+                  </div>
+
+                  <div class="living-index__list__item">
+                    <image src="/Common/images/max-temp.png"></image>
+                    <text class="living-index__list__item__temp">{{tempObj.high}}℃</text>
+                    <text class="living-index__list__item__text">最高温度</text>
+                  </div>
+                  <div class="living-index__list__item">
+                    <image src="/Common/images/fengli.png"></image>
+                    <text class="living-index__list__item__temp">{{now.wind_class || "无"}}</text>
+                    <text class="living-index__list__item__text">风力</text>
+                  </div>
+                  <div class="living-index__list__item living-index__list__item--right">
+                    <image src="/Common/images/yunliang.png"></image>
+                    <text class="living-index__list__item__temp">{{now.clouds || "无"}}</text>
+                    <text class="living-index__list__item__text">云量</text>
+                  </div>
+
+                  <div class="living-index__list__item">
+                    <image src="/Common/images/min-temp.png"></image>
+                    <text class="living-index__list__item__temp">{{tempObj.low}}℃</text>
+                    <text class="living-index__list__item__text">最低温度</text>
+                  </div>
+                  <div class="living-index__list__item">
+                    <image src="/Common/images/fengxiang.png"></image>
+                    <text class="living-index__list__item__temp">{{now.wind_dir || "无"}}</text>
+                    <text class="living-index__list__item__text">风向</text>
+                  </div>
+                  <div class="living-index__list__item living-index__list__item--right">
+                    <image src="/Common/images/qixiangyujing.png"></image>
+                    <text class="living-index__list__item__temp">{{alert.level || "无"}}</text>
+                    <text class="living-index__list__item__text">气象预警</text>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content-section" show="{{currentIndex == 1}}">
+            <personal id="personal"></personal>
+          </div>
+      </tab-content>
+      <tab-bar class="tab-bar">
+        <div class="tab-bar__item tab-bar__home">
+          <image src="{{currentIndex === 0 ? '/Common/images/home-icon-active.png' : '/Common/images/home-icon.png'}}"></image>
+          <text class="{{currentIndex === 0 ? 'active-text' : ''}}">天气</text>
+        </div>
+        <div class="tab-bar__item tab-bar__my">
+          <image src="{{currentIndex === 1 ? '/Common/images/my-icon-active.png' : '/Common/images/my-icon.png'}}"></image>
+          <text class="{{currentIndex === 1 ? 'active-text' : ''}}">我的</text>
+        </div>
+      </tab-bar>
+    </tabs>
+    
+    
+    <!-- <my-tabbar tabbar="{{tabbarData}}"></my-tabbar> -->
   </div>
 </template>
 
