@@ -4,8 +4,8 @@
 <import name="my-tabbar" src="apex-ui/components/tabbar/index"></import>
 <import name="chart" src="../components/chart.ux"></import>
 <import name="personal" src="../My/index.ux"></import>
+<import name="early-warning" src="../EarlyWarning/index.ux"></import>
  
-
 <template>
   <!-- template里只能有一个根节点 -->
   <div class="home-page">
@@ -87,8 +87,15 @@
               </div>
               <!-- 广告位 -->
               <div class="ad-wrap" if="{{footerAdShow}}" onclick="reportAdClick" onappear="reportAdShow">
-                <div class="ad">
-                  <image src="{{footerAd.imgUrlList ? footerAd.imgUrlList[0] : ''}}"></image>
+                <div class="footer-ad__img">
+                  <block if="{{footerAd.icon}}">
+                    <image class="footer-ad__img__icon" src="{{footerAd.icon}}"></image>
+                  </block>
+                  <image class="footer-ad__img__main" src="{{footerAd.imgUrlList ? footerAd.imgUrlList[0] : ''}}"></image>
+                  <text class="click-btn__text">{{footerAd.clickBtnText || '查看详情'}}</text>
+                </div>
+                <div class="ad-tip">
+                  <text>广告</text>
                 </div>
               </div>
               <!-- 15天预报 -->
@@ -162,6 +169,14 @@
             </div>
           </div>
           <div class="tab-content-section" show="{{currentIndex == 1}}">
+            <div class="information-wrap">
+              <information></information>
+            </div>
+          </div>
+          <div class="tab-content-section" show="{{currentIndex == 2}}">
+            <early-warning></early-warning>
+          </div>
+          <div class="tab-content-section" show="{{currentIndex == 3}}">
             <personal id="personal"></personal>
           </div>
       </tab-content>
@@ -170,9 +185,17 @@
           <image src="{{currentIndex === 0 ? '/Common/images/home-icon-active.png' : '/Common/images/home-icon.png'}}"></image>
           <text class="{{currentIndex === 0 ? 'active-text' : ''}}">天气</text>
         </div>
+        <div class="tab-bar__item tab-bar__home">
+          <image src="{{currentIndex === 1 ? '/Common/images/zixun-icon-active.png' : '/Common/images/zixun-icon.png'}}"></image>
+          <text class="{{currentIndex === 1 ? 'active-text' : ''}}">资讯</text>
+        </div>
+        <div class="tab-bar__item tab-bar__home">
+          <image src="{{currentIndex === 2 ? '/Common/images/yujing-icon-active.png' : '/Common/images/yujing-icon.png'}}"></image>
+          <text class="{{currentIndex === 2 ? 'active-text' : ''}}">预警</text>
+        </div>
         <div class="tab-bar__item tab-bar__my">
-          <image src="{{currentIndex === 1 ? '/Common/images/my-icon-active.png' : '/Common/images/my-icon.png'}}"></image>
-          <text class="{{currentIndex === 1 ? 'active-text' : ''}}">我的</text>
+          <image src="{{currentIndex === 3 ? '/Common/images/my-icon-active.png' : '/Common/images/my-icon.png'}}"></image>
+          <text class="{{currentIndex === 3 ? 'active-text' : ''}}">我的</text>
         </div>
       </tab-bar>
     </tabs>

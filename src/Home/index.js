@@ -34,7 +34,9 @@ const WEATHER_IMAGES = {
   "大冰雹": "/Common/images/bingbao.png",
   "中冰雹": "/Common/images/bingbao.png",
   "小冰雹": "/Common/images/bingbao.png",
-  "沙尘": "/Common/images/shachen.png"
+  "沙尘": "/Common/images/shachen.png",
+  "霾": "/Common/images/wu.png",
+  "雾霾": "/Common/images/wu.png",
 }
 
 const BG_IMAGE = {
@@ -63,6 +65,8 @@ const BG_IMAGE = {
   "大雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
   "中雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
   "小雪": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-snow.png",
+  "霾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fog.png",
+  "雾霾": "https://zhuanduobao.oss-cn-beijing.aliyuncs.com/gaokao/banner-fog.png"
 }
 
 const DATE_WEEK = {
@@ -76,7 +80,8 @@ const DATE_WEEK = {
 }
 export default Custom_page({
   data: {
-    ak: 'ld9bGd2Gh10pwhCwHIly9QCpRh7nNj9V',
+    // ak: 'ld9bGd2Gh10pwhCwHIly9QCpRh7nNj9V',
+    ak: 'wtQOEMchyeSzXnAYyN6axmThdTTi0FKq',
     city: '',
     cityId: '110100',
     weather: {},
@@ -137,18 +142,42 @@ export default Custom_page({
     topNews: [],
     currentIndex: 0
   },
-  onInit() {
-      this.getGeolocation()
-      this.getData()
+  async onInit() {
+      if(this.cityId) {
+        this.getData()
+      } else {
+        this.getGeolocation()
+      }
       this.nowDate = moment().format('M月DD日 dddd')
-      // 插屏
-      this.queryAdSwitch(23, (key) => {
-        this.insertAd(key)
-      })
-      // 原生
-      this.queryAdSwitch(24, (key) => {
-        this.queryFooterAd(key)
-      })
+      const deviceInfo = await device.getInfo()
+      const brand = deviceInfo.data.brand
+      if(brand === 'OPPO') {
+        console.log('xxx')
+        this.queryAdSwitch(45, (key) => {
+          this.insertAd(key)
+        })
+        // 原生
+        this.queryAdSwitch(46, (key) => {
+          this.queryFooterAd(key)
+        })
+      } else if(brand === 'vivo') {
+        // 插屏
+        this.queryAdSwitch(23, (key) => {
+          this.insertAd(key)
+        })
+        // 原生
+        this.queryAdSwitch(24, (key) => {
+          this.queryFooterAd(key)
+        })
+      }
+      // // 插屏
+      // this.queryAdSwitch(23, (key) => {
+      //   this.insertAd(key)
+      // })
+      // // 原生
+      // this.queryAdSwitch(24, (key) => {
+      //   this.queryFooterAd(key)
+      // })
       // 限行尾号
       this.xianxingWeiHao()
 
@@ -209,12 +238,28 @@ export default Custom_page({
   },
   // 获取当前城市
   getGeolocation(){
-    fetch.fetch({
-      url: 'http://api.map.baidu.com/location/ip?'+'ak='+this.ak
-    }).then(res => {
-      var data = JSON.parse(res.data.data)
-      if(data.status ==0){
-        this.city = data.content.address_detail.city.split('市')[0]
+    geolocation.getLocation({
+      success: ({longitude, latitude, accuracy}) => {
+        // wgs84
+        let latlon = `${latitude},${longitude}`
+        fetch.fetch({
+          url: `http://api.map.baidu.com/reverse_geocoding/v3/?ak=${this.ak}&output=json&coordtype=wgs84&location=${latlon}`,
+          responseType: 'json'
+        }).then(({data: {data}}) => {
+          if(data.status === 0) {
+            const {adcode, city, district} = data.result.addressComponent || {}
+            this.cityId = adcode 
+            // this.city = city + district
+            this.getData()
+          } else {
+            this.show = false
+          }
+        })
+      }, 
+      fail: () => {
+        prompt.showToast({
+          message: '获取定位权限失败'
+        })
       }
     })
   },
@@ -277,6 +322,7 @@ export default Custom_page({
     }).then(res => {
       try{
         const {data} = res.data.data
+        console.log(data, 'adswitch')
         if(data.ad_switch === 1) {
           callback && callback(data.corporation_key)
         }
@@ -287,7 +333,6 @@ export default Custom_page({
   },
   //   插屏广告
   insertAd(id) {
-    console.log(id)
     if(ad.createInterstitialAd) {
       this.interstitialAd = ad.createInterstitialAd({
           adUnitId: id
@@ -494,6 +539,14 @@ export default Custom_page({
     })
   },
   changeTabactive({index}) {
+    console.log(index)
     this.currentIndex = index
+    // if(index === 1) {
+    //   router.push({
+    //     uri: 'Information'
+    //   })
+    // } else if(index === 2) {
+    //   this.toEarlyWarning()
+    // }
   }
 })

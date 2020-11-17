@@ -1,8 +1,8 @@
 {
   "package": "com.didiweather.package",
   "name": "滴滴天气",
-  "versionName": "1.0.9",
-  "versionCode": "9",
+  "versionName": "1.1.8",
+  "versionCode": "18",
   "minPlatformVersion": "1060",
   "icon": "/Common/logo.png",
   "features": [
@@ -67,6 +67,20 @@
       }
     }
   },
+  "subpackages": [
+    {
+      "name": "info",
+      "resource": "Information"
+    },
+    {
+      "name": "my",
+      "resource": "My"
+    },
+    {
+      "name": "welfare",
+      "resource": "Welfare"
+    }
+  ],
   "display": {
     "titleBarBackgroundColor": "transparent",
     "titleBarTextColor": "#fff",

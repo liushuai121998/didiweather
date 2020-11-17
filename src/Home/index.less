@@ -1,7 +1,8 @@
 @import '../Common/css/mixin.less';
+@import '../Common/css/footerAd.less';
 .home-page {
     .flex-layout(column);
-    background-color: #F0F0F0;
+    // background-color: #F0F0F0;
 }
 
 .home-header {
@@ -310,21 +311,7 @@
     }
 }
 
-.ad-wrap {
-    padding: 0 15px;
-    .ad {
-        width: 100%;
-        height: 87px;
-        // background-color: #eee;
-        image {
-            width: 100%;
-            height: 100%;
-            border-radius: 2px;
-            resize-mode: stretch;
-            object-fit: fill;
-        }
-    }
-}
+
 
 .weather-times {
     .flex-layout(column);
@@ -378,4 +365,9 @@
 }
 .tab-content-section {
     flex-direction: column;
+
+}
+
+.information-wrap {
+    padding-top: 20px;
 }
