@@ -27,7 +27,7 @@
                     </list-item>
                 </block>
                 <block if="{{isLocalNoData}}">
-                    <list-item class="no-data">
+                    <list-item class="no-data" type="nodata">
                         <image src="/Common/images/empty.png"></image>
                         <text>当前暂无预警</text>
                     </list-item>
@@ -51,7 +51,7 @@
                     </list-item>
                 </block>
                 <block if="{{isAllNoData}}">
-                    <list-item class="no-data">
+                    <list-item class="no-data" type="nodata">
                         <image src="/Common/images/empty.png"></image>
                         <text>当前暂无预警</text>
                     </list-item>

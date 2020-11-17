@@ -104,7 +104,7 @@
 <style lang="less" scoped>
 .chart-wrap {
   height: 150px;
-  overflow: auto;
+  /* overflow: auto; */
   /* margin-left: -30px; */
 }
 </style>

@@ -58,6 +58,7 @@
         <image src="../../images/refresh.png" id="refresh" style="margin-top: 55px;width: 50px;height: 50px" onclick="oninitData"></image>
       </div>
     </div>
+  </div>
 </template>
 
 <script src="./information.js"></script>
@@ -75,7 +76,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 .adSignEl {
   height: 10px;

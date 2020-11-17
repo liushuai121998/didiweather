@@ -1,8 +1,8 @@
 {
   "package": "com.didiweather.package",
   "name": "滴滴天气",
-  "versionName": "1.1.8",
-  "versionCode": "18",
+  "versionName": "1.2.0",
+  "versionCode": "20",
   "minPlatformVersion": "1060",
   "icon": "/Common/logo.png",
   "features": [
